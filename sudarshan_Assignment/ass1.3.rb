@@ -36,7 +36,7 @@ def caseTask
 		puts "Enter valid name"
 		
 	end
-		    		
+
 end
 
 caseTask
