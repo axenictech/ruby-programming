@@ -1,0 +1,51 @@
+
+	class Assignment4
+		
+            begin
+
+		puts("Enter Name:")
+		@name=gets
+		begin
+			if(@name!= ~ /^[-a-z]+$/)		
+			puts"Enter only letters...."
+			end
+		end while (@name==~ /^[-a-z]+$/)
+
+		
+
+		puts("Enter Rating:")
+		@rat=gets.to_i
+
+		
+		
+		
+
+		case(@rat)
+
+		when  0..30 
+	
+			puts("Name: #{@name} Rating: poor....")
+
+		when  31..50
+			puts("Name: #{@name} Rating: ok....")
+
+		when  51..60
+			puts("Name: #{@name} Rating: good....")	
+
+		when  61..80
+			puts("Name: #{@name} Rating: Very Good....")
+
+		when  81..100
+			puts("Name: #{@name} Rating: Excellent....")
+		else
+			puts("Plz enter Number Between/ 0-100")
+
+		end
+
+	
+		puts("Do you Want to Cntineu.....[Y/N]")
+		@opt=gets
+	  end while(@opt.casecmp "y")
+
+end
+	Assignment4
