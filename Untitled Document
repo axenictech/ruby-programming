@@ -1,0 +1,10 @@
+class DefDemo
+	
+	def test(lang1="Ryby",lang2="paython")
+		
+		print("Lang1:#{lang1} Lang2#{lang2}")
+	end
+end
+
+	Defdemo.new.test
+	DefDeno.new.test("Java","Perl")
