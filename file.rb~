@@ -1,0 +1,5 @@
+file=File.open("read.txt","r")
+while(output=file.gets)
+	puts output
+end
+file.close
