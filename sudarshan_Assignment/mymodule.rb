@@ -1,4 +1,4 @@
-module Date
+module Dates
 def display
 puts "Today is:#{Time.now}"
 end
