@@ -1,0 +1,16 @@
+module Date
+def display
+puts "Today is:#{Time.now}"
+end
+end
+
+class Mywork
+include Date
+def work
+puts "Today is ruby practice"
+end
+end
+
+my=Mywork.new
+my.display
+my.work
