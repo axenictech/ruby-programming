@@ -1,8 +1,8 @@
-$LOAD_PATH << ''
-require "module"
+$LOAD_PATH << '.'
+require "mymodule"
 
 class Mywork
-include Date
+include Dates
 def work
 puts "Today is ruby practice"
 end
