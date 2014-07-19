@@ -1,0 +1,2 @@
+hi hello how r u?
+now you are reading text file
