@@ -1,5 +1,6 @@
 
 require "mysql"
+#Mysql connection
 begin
      # connect to the MySQL server
      con = Mysql.new 'localhost','root','root','anuja'
