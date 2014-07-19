@@ -1,0 +1,10 @@
+def task4
+
+	first=abc
+	second=xyz
+	
+	puts first[0]
+
+end
+
+task4
