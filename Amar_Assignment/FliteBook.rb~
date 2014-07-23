@@ -13,27 +13,8 @@ class FliteBook
 				id=1
 				case(choice)
 				when 1
-							 begin #loop for valiating user input until not entering corrct name
-                					puts
-                					print("Enter Name:")
-               						 name=gets
-                					
-    
-
-               					 if (name=~ /^[-a-z]+$/) #check regular expression for correct name
-                
-                    					break  #break  loop if user enter corrcect name
-
-                				 else        
-                    
-                    					puts"Enter only letters...."
-
-                    
-                					end 
-
-                
-            				 end while (name!=~ /^[-a-z]+$/)
-
+							print"Enter Name:"
+							name=gets
 							puts"Select City From:"
 							puts"1.Delhi"
 							puts"2.Chennai"
