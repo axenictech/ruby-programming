@@ -1,8 +1,8 @@
 
 
 require "mysql"
- # connect to the mysql server
-####	con=Mysql.new 'localhost','root','root'
+# connect to the mysql server
+#	con=Mysql.new 'localhost','root','root'
 
 
 begin

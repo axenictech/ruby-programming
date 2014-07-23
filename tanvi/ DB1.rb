@@ -1,4 +1,4 @@
-require 'pg'
+require 'mysql'
 
 begin
   con = Mysql.new('localhost','root','sai','axenic')
@@ -7,7 +7,7 @@ begin
 tanvi varchar(25),
 axenic varchar(25),
 loni varchar(25))');
-puts "table created"
+puts "record inserted"
   #rs.each_h {|hash| puts h['lastname','firstname','address','city']}
   con.close
 end
