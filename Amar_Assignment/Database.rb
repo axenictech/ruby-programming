@@ -8,24 +8,26 @@ require "mysql"
 		con=Mysql.connect("localhost","root","129129129","Test")
 		puts"got connection......"
 
-		stmt=con.prepare("insert into stud values(?,?)")
-		stmt.execute(1,"Amar")
-		stmt.execute(3,"Ashraf")
-		stmt.execute(4,"Sudarshan")
-		stmt.execute(5,"Bhushan")
+		stmt=con.prepare("insert into student values(?,?)")
+		# stmt.execute(1,"Amar")
+		# stmt.execute(3,"Ashraf")
+		# stmt.execute(4,"Sudarshan")
+		# stmt.execute(5,"Bhushan")
 		
-			
+		
 
 		con.commit
 		puts"Record inserted successfully.........."
 
 
      	
-        
-  		res=con.query("select * from stud")
+        puts"id      Name      Collage"
+  		res=con.query("select student.id,student.name,coll.colname from student,coll where student.id=1 and coll.id=1")
      	while row = res.fetch_row do
-     		printf "\nId: %d",row[0]
-        	printf "\nName: %s",row[1]
+     		printf "\n%d",row[0]
+        	printf "\t%s",row[1]
+        	printf "\t%s",row[2]
+        	puts
         end
 
 
