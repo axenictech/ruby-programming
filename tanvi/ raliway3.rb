@@ -1,4 +1,5 @@
 require 'mysql'
+
 def display
 begin 
 puts"enter your id"
@@ -10,6 +11,12 @@ end while(name!=~/^[-0-9]+$/)
 puts "do you want to continue(Y/N)"
 choice=gets
 end while(choice=/^[y]+$/)
+
+	res=con.prepare(select * from payment3 where 
+	res.execute (pune)
+	res.execute (mumbai)
+	while row=res.fetch do
+	payment3=row[0]
 end
 
 begin 
@@ -50,9 +57,9 @@ end while(choice=/^[y]+$/)
 end
 
 begin 
-puts"enter your payment"
-payment=gets.to_i
-if(payment=~/^[-0-9]+$/)
+puts"enter your cost"
+cost=gets.to_i
+if(cost=~/^[-0-9]+$/)
 else
 put"enter only digit"
 end while(name!=~/^[-0-9]+$/)
@@ -64,7 +71,7 @@ end
 begin
   con = Mysql.new('localhost','root','sai','mydata')
    puts "connection establised"
-  rs = con.query("select cost from payment2 where source=? and destination=?");
+  rs = con.query("select cost from payment3 where source=? and destination=?");
  rs.each do|a|
 	puts a.row[2]   
      RETURN RESULT SET;
@@ -72,6 +79,3 @@ begin
 	    puts "Error in connection.....#{e}"
            con.close
  end
-
-
-
