@@ -1,5 +1,7 @@
-
+#module for mysql connection
 require "mysql"
+#module for highlite password text on prompt
+require 'highline/import'
 
 class Axenic
 
@@ -78,8 +80,7 @@ class Axenic
 				
 				if pass==false
 
-					print "\n\n\t\t\t\tEnter Your Password: "
-					passw=gets.to_s
+				passw=ask("\n\n\t\t\t\tEnter Your Password: "){|character| character.echo=false}
 
 			# check password is equal to password that in database
 					match=passw.eql? password
@@ -164,8 +165,6 @@ class Axenic
 		print "\n\n\t\t\t\tEnter Your DOB(dd/mm/yyyy): "
 		dob=gets
 		size=dob.length
-		puts size
-
 	# check dob is valid date?
 		if dob=~ /\d{2}+\/+\d{2}+\/+\d{4}/ and size<12
 	#assign this dob values to instace variable
@@ -198,16 +197,14 @@ class Axenic
 
 	def register_password
 
-		print "\n\n\t\t\t\tEnter Your Password: "
-		password=gets
+		password=ask("\n\n\t\t\t\tEnter Your Password: "){|character| character.echo="*"}
 		pass_size=password.length.to_i
 
 
 	# check password have length greater than 5?
 			if (pass_size>5 and pass_size<20)
 				
-				print "\n\n\t\t\t\tEnter Confirm Password: "
-				password1=gets
+				password1=ask("\n\n\t\t\t\tEnter Confirm Password: "){|character| character.echo="*"}
 		# match password is eql to confrm password?
 				match=password.eql? password1
 				if match==true
@@ -232,7 +229,6 @@ class Axenic
 		print "\n\n\t\t\t\tEnter Your Mobile No.: "
 		contact=gets
 		size=contact.length
-		puts size
 
 	# check contact is digit and haveing length 10?
 		if contact=~ /\d{10}/ and size<12
@@ -272,7 +268,7 @@ class Axenic
 			puts "\n\n\t\t\t\t\tRegister Successfully...!!!"
 
 			puts "\n\n\t\t\t\t\tYour Id: #{@id}"	
-			puts "\n\t\t\t\t\tYour Password: #{@password}"	
+			print "\n\t\t\t\t\tYour Name: #{@fname}"	
 
 			puts "\n\n\t\t\t\t\t1.Login\n\t\t\t\t\t2.Register\n\t\t\t\t\t3.Exit\n\n"
 	# calling menu mehtod
