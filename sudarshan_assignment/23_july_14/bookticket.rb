@@ -62,12 +62,33 @@ class Ticket
 		if (name=~ /^[A-Z a-z]+$/) and (name_size>2 and name_size<21)
 	# assign to istance variable name
 			@name=name
+	#call check_name_already_exits method
+			check_name_already_exits
 	# call register_dob method
 			register_dob
 		else
 			puts "\n\n\t\t\t\tInvalid Name!!!...Enter Correct"
 	# call method register_name
 			register_name
+		end
+	end
+
+	def check_name_already_exits
+	#excute query
+		stmtt=@connection.prepare("select id,name from passenger where name=?")
+		stmtt.execute(@name)
+	#fetch record in recordset
+		recordsett=stmtt.fetch
+	#check recordset is nil
+		if recordsett.nil?
+		else
+			puts "\n\n\t\t\t\tYou are already registerd...!!!"
+			@id=recordsett[0]
+			name=recordsett[1]
+			puts "\n\n\t\t\t\tPassanger ID:- #{@id}"
+			puts "\n\n\t\t\t\tPassanger Name:- #{name}"
+		#call book method
+			book
 		end
 	end
 
@@ -128,16 +149,13 @@ class Ticket
 	end
 
 	def register
-		begin
+
 	#use statement to excute query
-			statmt=@connection.prepare("select id from passenger")
-			statmt.execute
-	#fetch record in recordset
-			while rs=statmt.fetch do
+			statmt=@connection.query("select id from passenger ORDER BY id DESC LIMIT 1")
+			rs=statmt.fetch_row
+			id=rs[0]		
 				
-				id=rs[0]				
-			end
-	# id increment by 1
+		# id increment by 1
 			@id=id.next
 
 			stmt=@connection.prepare("insert into passenger values(?,?,?,?,?)")
@@ -147,16 +165,6 @@ class Ticket
 			puts "\n\n\t\t\t\t\tRegister Successfully...!!!"
 	#call method book
 			book
-		rescue Mysql::Error=>e
-
-			puts "Error in Connection-.....#{e}"
-
-		ensure
-
-			@connection.close if @connection
-
-		end
-
 	end
 
 	def book
@@ -194,7 +202,6 @@ class Ticket
 
 	def flite
 
-			begin
 		#excute query
 			stmt2=@connection.prepare("select flite_id, payment from flite where from_city=? and to_city=?")
 			stmt2.execute(@from_city,@to_city)
@@ -213,15 +220,6 @@ class Ticket
 					puts "\n\t\t\t\tYou want to pay Rs. #{@payment}"
 					confirm
 				end	
-			rescue Mysql::Error=>e
-
-			puts "Error in Connection-.....#{e}"
-
-			ensure
-
-			@connection.close if @connection
-
-			end
 	end
 
 	def book_again
@@ -267,15 +265,11 @@ class Ticket
 
 	def ticket
 
-		begin
 	#excute query
-			stmt3=@connection.prepare("select ticket_no from ticket")
-			stmt3.execute
+			stmt3=@connection.query("select ticket_no from ticket ORDER BY ticket_no  DESC LIMIT 1")
 	#fetch recorde
-			while rs1=stmt3.fetch do
-				
-				tk=rs1[0]				
-			end
+			rst=stmt3.fetch_row
+			tk=rst[0]
 	#increment value ticket no by 1
 			@ticket_no=tk.next
 	#excute query
@@ -286,20 +280,10 @@ class Ticket
 			puts "\n\t\t\t\tYour ticket is confirme...."
 	#call method print ticket
 			print_ticket
-			rescue Mysql::Error=>e
-
-			puts "Error in Connection-.....#{e}"
-
-			ensure
-
-			@connection.close if @connection
-
-			end
 	end
 
 	def print_ticket
 
-		begin
 	#excute query
 			stmt6=@connection.prepare("select pass_id, flit_id from ticket where ticket_no=?")
 			stmt6.execute(@ticket_no)
@@ -333,20 +317,26 @@ class Ticket
 			puts "\n\t\t\t\t\tYou had paied Rs. #{@payment}"
 			puts "\n\t\t\t\t\t\tEnjoy Your Jurney.!!"
 			puts "\n\t\t\t\t$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
-		#call new ticket class
-				Ticket.new
-			rescue Mysql::Error=>e
 
-			puts "Error in Connection-.....#{e}"
-
-			ensure
-
-			@connection.close if @connection
-
-			end
-
+			book_plus
 	end
 
+	def book_plus
+
+		print "\n\n\t\t\t\tDo you want to book more ticket(y/n)"
+		choice=gets.chomp
+
+		if choice=="y"
+			book
+		elsif choice=="n"
+			puts "\n\t\t\t\tThank You!!!"
+			Ticket.new
+		else
+			puts "\n\n\t\t\t\tInvalid Choice!!!...Try again"
+	# call method book_plus
+			book_plus
+		end	
+	end
 end
 # call new ticket class
 Ticket.new

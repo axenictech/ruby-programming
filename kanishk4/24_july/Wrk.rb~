@@ -1,0 +1,13 @@
+$LOAD_PATH << '.'
+require "mymodule"
+
+class Wrk
+include Dates
+def wrk
+puts "Today is Programing day"
+end
+end
+
+my=Wrk.new
+my.display
+my.Wrk
