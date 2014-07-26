@@ -42,9 +42,9 @@ class Login
 	def createHash(password)
 	#create salt value for password
 		@salt=SecureRandom.base64(24)
-	#useing PKCS5 mixing password and salt 
+	#using PKCS5 mix password and salt 
 		pbkdf2=OpenSSL::PKCS5::pbkdf2_hmac_sha1(password,@salt,1000,24)
-	#encode mixing password
+	#encode mix password
 		@password=Base64.encode64(pbkdf2)
 	end
 
