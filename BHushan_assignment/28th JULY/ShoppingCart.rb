@@ -5,6 +5,9 @@ def initialize
 
 def start
 	begin
+		  #Database not able to create 
+        #-------Program is not working ------
+        # where is the database creation? 
 		@con=Mysql.connect('localhost','root','root','MyDB')
 		puts "\n\n\n\t---------------BK Shopping Cart--------------------\n\n"
 		puts "\n\n\t****************Select Category*****************\n"

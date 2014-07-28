@@ -7,13 +7,20 @@ class Shop
 	
 		begin
 
-	# mysql connectivity
+	       # mysql connectivity
+	       # Database not able to create
+	       # Do proper indentation and comments 
+
 			@con=Mysql.connect("localhost","root","root","shop")
 
 			@con.query("create database if not exists\ shop")
 			@con.query("create table if not exists\ user(uid int primary key,uname varchar(20),cnt_no int)")
 			@con.query("create table if not exists\ product(pid int primary key,pname varchar(20),quantity int,prize int)")
 			@con.query("create table if not exists\ card(cid int primary key,uid int)")
+            
+            # Error in Connection-.....Can't create table 'shop.inline1' (errno: 150)
+			# Program not working
+
 			@con.query("create table if not exists\ inline1(cid int, foreign key(cid) references card(cid),pid int, foreign key(pid) references product(pid),quantity_i int)")
 			@con.query("create table if not exists\ Order2(oid int primary key,cid int,foreign key(cid) references card(cid),total int)")
 
@@ -54,41 +61,41 @@ class Shop
             register_name
    end
    
-   def select 
+	   def select 
 
-        print "\n\n\t\tselect Product Id : "
-        pid=gets.chomp
-        @p_id=pid
+	        print "\n\n\t\tselect Product Id : "
+	        pid=gets.chomp
+	        @p_id=pid
 
-        stmt2=@con.prepare("select pname,quantity,prize from product where pid=?")
-        stmt2.execute(@p_id)
-        row1=stmt2.fetch 
-        @pname=row1[0]
-        @quantity=row1[1]
-        @prize=row1[2]
-         # puts "\t\tyour product info is\n"
-         # puts "\t\tproduct name is= #{@pname}\n"
-         # puts "\t\tproduct prize is= #{@prize}\n"
+	        stmt2=@con.prepare("select pname,quantity,prize from product where pid=?")
+	        stmt2.execute(@p_id)
+	        row1=stmt2.fetch 
+	        @pname=row1[0]
+	        @quantity=row1[1]
+	        @prize=row1[2]
+	         # puts "\t\tyour product info is\n"
+	         # puts "\t\tproduct name is= #{@pname}\n"
+	         # puts "\t\tproduct prize is= #{@prize}\n"
 
-        print "\n\n\t\t Enter how many quantity you want to purches : "
-        @quantity_pc=gets.to_i
+	        print "\n\n\t\t Enter how many quantity you want to purches : "
+	        @quantity_pc=gets.to_i
 
 
 
-        # stmt5=@con.prepare("select cid from cart order by cid desc limit 1")
-        #         stmt5.execute	
+	        # stmt5=@con.prepare("select cid from cart order by cid desc limit 1")
+	        #         stmt5.execute	
 
-        #              rs1=stmt5.fetch 
-			     #     cid=rs1[0]				
-	          
-	       #           @c_id=cid.next
+	        #              rs1=stmt5.fetch 
+				     #     cid=rs1[0]				
+		          
+		       #           @c_id=cid.next
 
-               stmt6=@con.prepare("insert into inline1 values(?,?,?)")
-               stmt6.execute(@c_id,@p_id, @quantity_pc)
-        
-               select_again
+	               stmt6=@con.prepare("insert into inline1 values(?,?,?)")
+	               stmt6.execute(@c_id,@p_id, @quantity_pc)
+	        
+	               select_again
 
-end
+		end
 
 
 

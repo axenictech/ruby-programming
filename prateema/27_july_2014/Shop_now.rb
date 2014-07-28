@@ -1,4 +1,4 @@
-
+#Where is the comments ??
 require 'mysql'
 
 class Shop
@@ -7,6 +7,8 @@ class Shop
 
 	 begin
         
+        #Database not able to create 
+        #-------Program is not working ------
         @conn=Mysql.connect("localhost","root","root","prateema")
         @conn.query("CREATE TABLE IF NOT EXISTS person_det(id int primary key AUTO_INCREMENT,name varchar(20),address varchar(20),age int,password varchar(20),email varchar(20))")
         display_details

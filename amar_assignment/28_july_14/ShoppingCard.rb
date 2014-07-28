@@ -1,11 +1,18 @@
 require "mysql" 
 class ShoppingCard
 
-    
+      
+        #-------Program is not working ------
+        #undefined method `quantity' for #<Mysql:0x9db4fe4>
+        # Plz Enter your name:dsad
+        # ShoppingCard.rb:50:in `query': Table 'shopping.user' doesn't exist (Mysql::Error)
+        # from ShoppingCard.rb:50:in `<class:ShoppingCard>'
+        # from ShoppingCard.rb:2:in `<main>'
+ 
 
             begin
                    
-               con=Mysql.connect("localhost","root","129129129")
+               con=Mysql.connect("localhost","root","root")
                con.query("CREATE DATABASE IF NOT EXISTS shopping")
                con.quantity("use shopping")
                con.query("create table uid int(30),name varchar(20),primary key(uid)")
@@ -27,7 +34,7 @@ class ShoppingCard
 
            
 
-               con=Mysql.connect("localhost","root","129129129","shopping")
+               con=Mysql.connect("localhost","root","root","shopping")
                                 
                begin print" \n Plz Enter your name:"
                         name=gets

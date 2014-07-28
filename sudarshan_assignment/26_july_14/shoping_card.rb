@@ -1,4 +1,6 @@
-#to do program under working
+#to do program under working ?????
+
+# Where is  the comments??
 
 require"mysql"
 
@@ -7,10 +9,12 @@ class Mall
 	def initialize
 	
 		begin
+			#change the password 
+			@connection=Mysql.connect("localhost","root","root")
 
-			@connection=Mysql.connect("localhost","root","mysql")
 			
 			@connection.query("create database if not exists\ shop")
+			
 			@connection.query("use shop")
 
 			@connection.query("create table if not exists\ product
@@ -22,16 +26,22 @@ class Mall
 			@connection.query("create table if not exists\ inline_product
 				(card_no int,p_id int,quantity int, foreign key(p_id) references product(p_id))")
 
+            # user table not able to create 
 			@connection.query("create table if not exists\ user
 				(user_id int,user_name varchar(50),user_add varchar(50),
 					user_mobile int,foreign key(user_id) references card(user_id))")
+			
 
 			@connection.query("create table if not exists\ order_buy
 				(card_no int,order_id int primary key,total int)")
 
 			puts "\n\n\t\t\t\tWelcome To Inorbit Mall"
+			# why this below methods are commented ??
+			#------------------ Program is not working ----------------------	
 			# auto_increment
 			# menu
+
+            # 	Welcome To Inorbit Mall only this msg displays and prog over 
 
 		rescue Mysql::Error=>e
 
