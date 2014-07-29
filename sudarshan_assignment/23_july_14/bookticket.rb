@@ -10,8 +10,38 @@ class Ticket
 		begin
 
 	# mysql connectivity
-			@connection=Mysql.connect("localhost","root","mysql","Testdb")
-			
+			@connection=Mysql.connect("localhost","root","mysql")
+	#create database
+			@connection.query("create database if not exists\ flight_book")
+	#use database
+			@connection.query("use flight_book")
+	#create table for passenger
+			@connection.query("create table if not exists\ passenger
+				(id int primary key,name varchar(20),dob date,mobile int,email varchar(20))")
+	#create table for ticket
+			@connection.query("create table if not exists\ ticket
+				(pass_id int,ticket_no int,flit_id int)")
+	#create table for flite
+			@connection.query("create table if not exists\ flite
+				(from_city varchar(20),to_city varchar(20),payment int,flite_id int)")
+	#fetch recorde from flite
+			statement=@connection.query("select * from flite")
+	#check recodset in null
+			if (recordset=statement.fetch_row).nil?
+		#if recodset null insert values into flite
+					@connection.query("insert into flite values 
+										('pune','mumbai',1000,1),
+										('pune','goa',1500,2),
+										('pune','delhi',2000,3),
+										('pune','kolkata',2000,4),
+										('pune','chennai',2000,5),
+										('pune','banglore',2000,6),
+										('pune','dubai',5000,7),
+										('pune','uk',25000,8),
+										('pune','usa',20000,9),
+										('pune','paris',10000,10)")
+			end
+
 			puts "\n\n\t\t\t\tFlight Book\n\n"
 			puts "\t\t\t\t1.Book Your Ticket\n\t\t\t\t2.Exit\n\n"
 	#call menu method
@@ -54,7 +84,7 @@ class Ticket
 
 	def register_name
 
-		print "\n\n\t\t\t\tEnter Your First Name: "
+		print "\n\n\t\t\t\tEnter Your Name: "
 	# passanger name
 		name=gets.chomp
 		name_size=name.length
@@ -152,11 +182,14 @@ class Ticket
 
 	#use statement to excute query
 			statmt=@connection.query("select id from passenger ORDER BY id DESC LIMIT 1")
-			rs=statmt.fetch_row
-			id=rs[0]		
-				
-		# id increment by 1
-			@id=id.next
+		#check recorde set is nil
+			if(rs=statmt.fetch_row).nil?		
+		#if null assign default values
+				@id=101
+			else
+		#if not null then id increment by 1
+				@id=rs[0].next
+			end
 
 			stmt=@connection.prepare("insert into passenger values(?,?,?,?,?)")
 			stmt.execute(@id,@name,@dob,@mobile,@email)
@@ -267,11 +300,14 @@ class Ticket
 
 	#excute query
 			stmt3=@connection.query("select ticket_no from ticket ORDER BY ticket_no  DESC LIMIT 1")
-	#fetch recorde
-			rst=stmt3.fetch_row
-			tk=rst[0]
-	#increment value ticket no by 1
-			@ticket_no=tk.next
+	#check recorde set is nil
+			if(rs=stmt3.fetch_row).nil?		
+		#if null assign default values
+				@ticket_no=101011
+			else
+		#if not null then id increment by 1
+				@ticket_no=rs[0].next
+			end
 	#excute query
 			stmt4=@connection.prepare("insert into ticket values(?,?,?)")
 			stmt4.execute(@id,@ticket_no,@flite_id)

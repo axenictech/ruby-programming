@@ -352,7 +352,7 @@ class Mall
 			@address=gets.chomp
 	#check validation for address
 		break if@address.length>10 and @address.length<51
-			puts "\n\n\t\tInvalid Address!!!...Enter full Correct address"
+			puts "\n\n\t\tInvalid Address!!!...Enter full Correct address(minimum 10 character)"
 		end
 		
 		loop do
