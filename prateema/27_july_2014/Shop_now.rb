@@ -1,18 +1,38 @@
 #Where is the comments ??
 require 'mysql'
-
+require "terminal-table"
 class Shop
 	
 	def initialize	
 
 	 begin
         
-        #Database not able to create 
-        #-------Program is not working ------
-        @conn=Mysql.connect("localhost","root","root","prateema")
-        @conn.query("CREATE TABLE IF NOT EXISTS person_det(id int primary key AUTO_INCREMENT,name varchar(20),address varchar(20),age int,password varchar(20),email varchar(20))")
-        display_details
-    
+        @conn=Mysql.connect("localhost","root","mysql")
+        @conn.query("create database if not exists\ prateema")
+        @conn.query("use prateema")
+        @conn.query("create table if not exists\ item_details
+				(item_id int primary key,item_name varchar(20),item_qt int, item_cost int)")
+
+    	insert_tab=@conn.query("select * from item_details")
+			if (select_item=insert_tab.fetch_row).nil?
+					@conn.query("insert into item_details values 
+										(1001,'tops',20,900),
+										(2002,'kurti',20,1000),
+										(3008,'bags',20,400),
+										(9172,'jeans',20,1000),
+										(0272,'shorts',20,300),
+										(8725,'shoes',20,300),
+										(8276,'rings',20,800),
+										(8922,'sandles',20,1000),
+										(9927,'stelltoes',20,400),
+										(1088,'formals',20,200)")
+			end
+
+			@conn.query("create table if not exists\ q_table(temp_qt int,temp_name varchar(20))")
+			@conn.query("create table if not exists\ cart_table(prod_id int,cart_name varchar(20),cart_qt int,cart_cost int)")
+
+		  display_details
+
       rescue Mysql::Error=>e 
         puts "Connection error.....#{e}"
 
@@ -38,7 +58,7 @@ class Shop
     	
     	puts "\t\t SELECT PRODUCT NAME"
     	@s_prd=gets.chomp
-    	puts "\t\t Quantity of the PRODUCT"
+    	puts "\t\t QUANTITY OF PRODUCT"
     	@s_qt=gets
     	
     	quant_tab=@conn.prepare("insert into q_table(temp_qt,temp_name) values(?,?)")
@@ -46,37 +66,22 @@ class Shop
     	@conn.commit
 
     	# insert into cart_table
-    	cart_me=@conn.prepare("INSERT INTO cart_table(cart_id,cart_name)SELECT item_id,item_name FROM item_details WHERE item_name=?")
-    	cart_me.execute(@s_prd)
+
+    	cart_me=@conn.prepare("INSERT INTO cart_table(prod_id,cart_name,cart_qt,cart_cost)SELECT item_id,item_name,temp_qt,item_cost FROM item_details,q_table WHERE item_name=? and temp_name=?")
+    	cart_me.execute(@s_prd,@s_prd)
     	@conn.commit
 
-    	cal_item=@conn.prepare("select item_cost from item_details where item_name=?")
+    	# calculating the cost
+    	cal_item=@conn.prepare("select (cart_qt*cart_cost) from cart_table where cart_name=?")
     	cal_item.execute(@s_prd)
     	prod_select=cal_item.fetch
     	@amout=prod_select * @s_qt
-    	# puts amout
     	
-
-    	# select_p=@conn.prepare("select item_cost from item_details where item_name=?")
-    	# select_p.execute(@s_prd)
-    	# prod_select=select_p.fetch
     	
-    	# cart_me1=@conn.prepare("insert into cart_table(item_cost,item_qt,item_total) values(?,?,?) where cart_") 
-    	# cart_me1.execute()
-    	#  @conn.commit
-
-		insert_cart=@conn.prepare("update cart_table set cart_total=? where cart_name=?")
-		insert_cart.execute(@amout,@s_prd)
-		@conn.commit    	
-
-    	# {printing a single value
-    	# select_p=@conn.prepare("select item_cost from item_details where item_name=?")
-    	# select_p.execute(@s_prd)
-    	# prod_select=select_p.fetch
+    	#updating the item_details
+		insert_cart=@conn.prepare("update cart_table set cart_cost=? where cart_name=?")
+		insert_cart.execute(@amout  ,@s_prd)	
     	
-        # puts "\t\t#{prod_select[0]}"
-        # }
-
         puts "BUY another product"
         @choice=gets
         if (@choice=~/^[y]+$/)
@@ -87,9 +92,7 @@ class Shop
     		cart_data=@conn.query("select * from cart_table")
     		 while row=cart_data.fetch_row  do 
     		 	print "\tID\tNAME\tTOTAL "
-        	 	print " #{row[0]}"
-          		puts " #{row[1]}"
-         		puts " #{row[2]}"
+        	 	print " \n\t#{row[0]}\t#{row[1]}\t#{row[3]}"
           		puts "\n"
     		 end
     	
@@ -100,10 +103,11 @@ class Shop
     end
 
     def generate_bill
-    	gen_bil=@conn.query("select sum(cart_total) from cart_table")
+    	gen_bil=@conn.query("select sum(cart_cost),cart_cost from cart_table")
     	grand_total=gen_bil.fetch_row
     	gt=grand_total[0]
-    	 
+    	 @cost=grand_total[1]
+
     	print "\t\tThe total bill is #{gt}"
     	
     	puts "\tdo u want to go further"
@@ -117,7 +121,7 @@ class Shop
 
     end
 
-    
+    # accepting the name
     def accept_name
 
    		puts "Enter name:"        
@@ -133,6 +137,7 @@ class Shop
 
     end
 
+    # accepting address
     def accept_address
 
       puts "Enter Address:"        
@@ -147,13 +152,14 @@ class Shop
 
     end
 
+	    #acceptong the postal code 
     def accept_postal
 
     	 puts "Enter postal code"
     	 @postal=gets.chomp
 
     	 if(@postal.length!=6 and @postal!~/^[a-z]+$/)
-    	 	puts "incorrect"
+    	 	puts " 6 digits postal code"
     	 	accept_postal
     	 else
     	 	puts "\t\t\tAccepted"
@@ -163,21 +169,24 @@ class Shop
     end
 
     def update_table
-    	@cnt=@conn.query("select count(*) from q_table")
-    	puts @cnt
+    	cnt=@conn.query("select temp_name from q_table")
+    	
+    	while cnt_tab=cnt.fetch_row do
     	update_me=@conn.prepare("update item_details set item_qt=item_qt-(select temp_qt from q_table where temp_name=? )where item_name=?")
-    	update_me.execute(@s_prd,@s_prd)
-    	@conn.commit
-    	print_bill
+    	update_me.execute(cnt_tab[0],cnt_tab[0])
+    	end
     	puts 
+
+    	print_bill
 
     end
 
     def print_bill
+
     	print "\n \n=========================================================================="
-    	print "\n\t\t CUSTOMER :#{@name} \t ADDRESS :#{@address} \t POSTAL CODE :#{@postal} "
-    	print "\n TOTAL AMOUNT :#{@amout}RS/- "	
-	    print "\n\n =========================================================================="	
+    	print "\n\t\tCUSTOMER :#{@name}\t\tADDRESS :#{@address}\t\tPOSTAL CODE :#{@postal} "
+    	print "\n\t\tTOTAL AMOUNT :#{@amout} RS/- "	
+	    print "\n\n ==========================================================================\n"	
     end
 
 end
