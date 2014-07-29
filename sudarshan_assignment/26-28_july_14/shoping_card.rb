@@ -89,7 +89,7 @@ class Mall
 	def menu
 #fetch record from products wher stock is not zero
 		statement=@connection.query("select * from products where p_stock > 0")
-		
+	#declar count for product
 			@count=0
 	#declare rows as array 
 			rows=[]
@@ -101,6 +101,7 @@ class Mall
 		while recordset=statement.fetch_row do
 	#use row array to insert record set into rows
 			rows<<[recordset[0],recordset[1],recordset[3],recordset[2]]
+	#count products
 			@count+=1
 		end
 	#insert rows array in to table rows
