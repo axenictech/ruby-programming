@@ -3,6 +3,7 @@
 #at login time current password encode with original salt 
 #after that check encoded current password and encoded original password
 
+
 #use highline/import module to hide password on prompot
 require "highline/import"
 #use securerandom module for salt value

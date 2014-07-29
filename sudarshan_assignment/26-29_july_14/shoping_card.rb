@@ -11,7 +11,7 @@ class Mall
 	
 		begin
 	#connect to mysql database
-			@connection=Mysql.connect("localhost","root","129129129")
+			@connection=Mysql.connect("localhost","root","mysql")
 	#create database
 			@connection.query("create database if not exists\ shoping_card")
 	#use database
