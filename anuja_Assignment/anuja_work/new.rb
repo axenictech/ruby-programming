@@ -5,10 +5,10 @@ class Shop
 
 	def initialize
 	
-		begin
+	begin
 
 	# mysql connectivity
-			@con=Mysql.connect("localhost","root","129129129")
+			@con=Mysql.connect("localhost","root","root")
     
     # create database if not exists
 			@con.query("create database if not exists\ abc")
@@ -93,9 +93,11 @@ class Shop
          @quantity_pc=gets.to_i
 
          stmt6=@con.prepare("insert into inline1 values(?,?,?)")
-         stmt6.execute(@c_id,@p_id, @quantity_pc)
+         stmt6.execute(@c_id,@p_id,@quantity_pc)
         
-          
+      
+
+
          select_again
 
     end
