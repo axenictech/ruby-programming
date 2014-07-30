@@ -6,7 +6,6 @@
 #take salt from join string and mix with current login password
 #match mixing current password and decrypt mixing password
 
-
 #use highline/import module to hide password on prompot
 require "highline/import"
 #use securerandom module for salt value
