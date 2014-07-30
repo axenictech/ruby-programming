@@ -194,7 +194,7 @@ class Shop
 		ensure
 
 			@con.close if @con
-
+k
 		end
 
 	end
