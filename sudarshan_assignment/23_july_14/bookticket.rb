@@ -3,7 +3,6 @@
 #use mysql model for connectivity
 require "mysql"
 
-
 class Ticket
 
 	def initialize

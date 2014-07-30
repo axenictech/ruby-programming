@@ -4,6 +4,10 @@
 require "mysql"
 #terminal-table module for table formate
 require "terminal-table"
+#prawn module to generate pdf document
+require "prawn" 
+#prawn/table to save table in pdf
+require "prawn/table"
 
 class Mall
 
@@ -55,7 +59,6 @@ class Mall
 			auto_increment
 	#call menu method
 			menu
-		
 		rescue Mysql::Error=>e
 
 			puts "Error in Connection-.....#{e}"
@@ -481,32 +484,41 @@ class Mall
 		recordset16=statement16.fetch
 	#use time class to print date
 		t=Time.now
-
+	#declare rows array
 		rows=[]
-
+	#use terminal table to generate tabel
 		table=Terminal::Table.new
-		table.title="Inorbit Mall\n\nBill Reciept"
-		rows<<:separator
+		rows<<["Inorbit Mall","","",""]
+		rows<<["Bill Reciept","","",""]
+		rows<<[""]
 		rows<< ["Order No.: #{recordset16[0]}","","","Date:- #{t.day}/#{t.month}/#{t.year}"]
-		rows<<:separator
-		rows<<:separator
-		rows<< ["\nName: #{recordset14[0]}"]
-		rows<< ["\nAddress: #{recordset14[1]}"]
-		rows<< ["\nMobile No: #{recordset14[2]}"]
-		rows<<:separator
-		rows<<:separator
+		rows<<[""]
+		rows<< ["Name: #{recordset14[0]}"]
+		rows<< ["Address: #{recordset14[1]}"]
+		rows<< ["Mobile No: #{recordset14[2]}"]
+		rows<<[""]
 		rows<< ["Product Name","Product price","Product quantity","Price total"]
-		rows<<:separator
+		rows<<[""]
+
 		while recordset15=statement15.fetch do
 
 			rows<<[recordset15[0],recordset15[1],recordset15[2],recordset15[3]]
 		end
-		rows<<:separator
-		rows<<:separator
+		rows<<[""]
 		rows<< ["","","","Total: #{recordset16[1]}"]
 		
 		table.rows=rows
 		puts "\n#{table}"
+	#use prawn to generate pdf document file with name of order no
+		Prawn::Document.generate("#{recordset16[0]}.pdf") do 
+	#table is method to insert table in pdf and
+	#rows is array that declared and already we used in terminal table
+	#here to insert some data in table formate we want to write lengthy code
+	#but using rows array that we are already implemented in terminal
+	#we don't want to write new code here
+	#to optimize code access that rows array
+		table rows
+		end
 
 		exit -1
 	end
