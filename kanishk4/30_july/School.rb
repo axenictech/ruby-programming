@@ -1,4 +1,5 @@
 require "mysql"
+require "terminal-table"
 
 class School
 
@@ -31,8 +32,8 @@ def getdata
 			print"Enter you marks:"
 			@marks=gets.to_i
 
-			stmt=@cn.prepare("insert into schoolinfo values (?,?,?)")
-			stmt.execute(@roll_no,@name, @marks)
+			stmt=@cn.prepare("insert into demo values (?,?,?)")
+			stmt.execute(@roll_no,@name,@marks)
 			puts"record insert successfully"
 
 			puts"Do you want to add another record------->[y/n]"
@@ -52,18 +53,20 @@ end
 def disp
 			
 			#to fetch data
-			stm=@cn.query("select *from schoolinfo")
-			
-
-			puts "Roll no \tName \t Marks "
+			stm=@cn.query("select *from demo")
+			rows=[]
+			table=Terminal::Table.new
+			table.headings=["Roll no","Name","marks"]
+		
 
 			while rs=stm.fetch_row do
-					print " ",rs[0]
-					print "      ",rs[1]
-					print "  ",rs[2]
-
-					puts
+					
+					rows<<[rs[0],rs[1],rs[2]]
+				
 			end
+			table.rows=rows
+			puts"\n #{table}"
+
 end
 
 end
