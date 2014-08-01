@@ -234,11 +234,6 @@ class Shop
 		 stmt15=@con.prepare("select p.pname,i.quantity_i, p.prize, (i.quantity_i * p.prize) from inline1 i,product p where i.cid=? and  p.pid=i.pid")
          stmt15.execute(@c_id)
        
-         stmt16=@con.prepare("select sum(i.quantity_i * p.prize) from inline1 i,product p where i.cid=? and  p.pid=i.pid")
-         stmt16.execute(@c_id)
-
-         record5=stmt16.fetch
-         @all=record5[0]
          
 					  card 
 					  
@@ -270,15 +265,48 @@ class Shop
 			table2.rows=rows
 			puts "#{table2}"
 
-			product_order
+			print "\n\t\tdo you want to delete product[y/n]"
+			del=gets.chomp
+			if del=="y"
+				delete
+            else
+            	product_order
+            end
 
         end
 
 
 
+def delete
+
+		print "\n\n\t\t\t\tEnter product id: "
+		pid_d=gets.to_i
+
+				stat22=@con.prepare("delete from inline1 where pid=? and cid=?")
+				stat22.execute(pid_d,@c_id)
+				puts "\n\t\tproduct deleted."
+				print "\n\t\tdo you want del more product [y/n]"
+		        del_mor=gets.chomp
+		        if del_mor=="y"
+
+				  delete
+		else
+		        product_order
+		end
+		
+	end
+
+
+
     def product_order
            
-           print "\n \t\tyou total product price is #{@all}\n"
+           stmt16=@con.prepare("select sum(i.quantity_i * p.prize) from inline1 i,product p where i.cid=? and  p.pid=i.pid")
+         stmt16.execute(@c_id)
+
+         record5=stmt16.fetch
+         @all=record5[0]
+         
+          print "\n \t\tyou total product price is #{@all}\n"
 
            
 			statement12=@con.prepare("select pid from inline1 where cid=?")
