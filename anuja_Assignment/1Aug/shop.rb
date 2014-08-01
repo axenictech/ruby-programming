@@ -1,5 +1,12 @@
+<<<<<<< HEAD:anuja_Assignment/anuja_work/new.rb
 require "mysql"
 require "prawn"
+=======
+
+require "mysql"
+require "prawn"
+require "prawn/table"
+>>>>>>> c7c80fe349f8ba4c53592173431500ba7e3bf69b:anuja_Assignment/1Aug/shop.rb
 require 'terminal-table'
 class Shop
 
@@ -72,33 +79,57 @@ class Shop
            rows=[]
 		
 		    	while row=stmt1.fetch_row do
+<<<<<<< HEAD:anuja_Assignment/anuja_work/new.rb
+=======
+
+>>>>>>> c7c80fe349f8ba4c53592173431500ba7e3bf69b:anuja_Assignment/1Aug/shop.rb
 				   table.headings=['id','name','quantity','price']
 				   rows<<[row[0],row[1],row[2],row[3]]
 			    end
 			table.rows=rows
 			puts "#{table}"
-	    puts "\n\t\t*************Welcome in Shri Mall********************"
+	    puts "\n\t\t*************Welcome in Magic Mall********************"
 	    puts "\n\t\tFill the following details :- "
 	    #call register_name method
 	     register_name
     end
    
     def select 
-        
+        begin
          print "\n\n\t\tselect Product Id : "
-         pid=gets.chomp
-         @p_id=pid
+         pid=gets
+         
+        if(pid=~/^[0-9]+$/)
+         	 @p_id=pid.to_i
+             stmt19=@con.prepare("select * from product where pid=?")
+             stmt19.execute(@p_id)
+               if(record8=stmt19.fetch).nil?
+                 puts "\n\t\tEnter Correct Product ID"
+               else
+                 break
+               end
+         else
+         	puts "\n\t\tEnter only digit"
+         end
+        end while(@p_id!=~ /^[0-9]+$/)              
+
 
          print "\n\n\t\tEnter how many quantity you want to purches : "
          @quantity_pc=gets.to_i
 
-         stmt6=@con.prepare("insert into inline1 values(?,?,?)")
-         stmt6.execute(@c_id,@p_id,@quantity_pc)
-        
-      
+         stmt18=@con.prepare("select quantity from product where pid=?")
+         stmt18.execute(@p_id)
+         record7=stmt18.fetch
+         quan=record7[0].to_i
 
-
-         select_again
+         if (@quantity_pc<=quan)
+           stmt6=@con.prepare("insert into inline1 values(?,?,?)")
+           stmt6.execute(@c_id,@p_id,@quantity_pc)
+           select_again
+        else
+        	puts "sorry stock is over"
+     	    select
+     end
 
     end
 
@@ -128,31 +159,26 @@ class Shop
 	    
 	    if mobile=~ /\d{10}/ and size<12
           @mobile=mobile.to_i
-
-		register_address
+          register_address
 		
 		else
 		   puts "\n\t\tInvalid Mobile No!!!...Enter Correct"
 	
-		register_cntno
+		  register_cntno
 		end
 	end
 
     def register_address
 
-		print "\n\t\tEnter Your address : "
-		address=gets
-		size=address.length
-	    
-	    if size>3 or size<20
-          @address=address.to_s
-
-		register
-		
+        print "\n\t\tEnter Your Address : "
+     	address=gets.chomp
+		address_size=address.length
+		if (address=~ /^[A-Z a-z]+$/) and (address_size>2 and address_size<21)
+	        @address=address
+	       register
 		else
-		  puts "\n\t\tInvalid Mobile No!!!...Enter Correct"
-	
-		register_address
+			puts "\n\t\t\t\tInvalid address!!!...Enter Correct"
+	        register_address
 		end
 	end
 	
@@ -222,7 +248,7 @@ class Shop
          record5=stmt16.fetch
          @all=record5[0]
          
-					    product_order 
+					  card 
 					  
 					else
 						puts "\n\t\tInvalid Choice!!!...Try again"
@@ -232,15 +258,56 @@ class Shop
 
    end
 
+    def card	
+
+		puts "\n\t\t\t\t your product  list "
+
+		stmt21=@con.prepare("select i.pid,p.pname,p.prize,i.quantity_i,
+			(p.prize*i.quantity_i) from inline1 i,product p where i.cid=? and p.pid=i.pid")
+		stmt21.execute(@c_id)
+		
+		
+           table2 = Terminal::Table.new
+           rows=[]
+		
+		    	while row5=stmt21.fetch do
+
+				   table2.headings=['Product Id','product Name','product price','product quantity','price total']
+				   rows<<[row5[0],row5[1],row5[2],row5[3],row5[4]]
+			    end
+			table2.rows=rows
+			puts "#{table2}"
+
+			product_order
+
+        end
+
+
+
     def product_order
            
            print "\n \t\tyou total product price is #{@all}\n"
+
+           
+			statement12=@con.prepare("select pid from inline1 where cid=?")
+			statement12.execute(@c_id)
+			
+			while recordset12=statement12.fetch do
+
+				statement13=@con.prepare("update product set quantity=quantity-(select quantity_i from 
+					inline1 where pid=? and cid=?) where pid=?")			
+				statement13.execute(recordset12[0],@c_id,recordset12[0])
+				
+			end
+
+
 	       print "\n \t\tDo you want to order products(y/n)?: " 
 				
 				#get choice from user
 				ch1=gets.chomp
 			        
 			        if ch1=="y"
+
 
 			              bill
 					
@@ -250,7 +317,7 @@ class Shop
 					else
 						puts "\n\n\t\tInvalid Choice!!!...Try again"
 					
-					    order_product_choice
+					    #order_product_choice
 	               end
 	end
 
@@ -268,27 +335,31 @@ class Shop
          stmt10.execute(@c_id)
          row6=stmt10.fetch
 
+			
+
          @total=row6[0]
+         
 
          table1 = Terminal::Table.new
                rows=[]
                table1.headings=['name','cnt no','Address']
                rows<<[row2[0],row2[1],row2[2]]
-               rows<<:separator
+               rows<<[""]
                rows<<['','','','']
                rows<<['product name','per/product Rs','quantity','Price']
-		        rows<<:separator
+		        rows<<[""]
 		    	while row=stmt9.fetch do
 				   
 				   rows<<[row[0],row[2],row[1],row[3]]
 			    
 			    end
-			    rows<<:separator
+			    rows<<[""]
 	            rows<<['','','Total',row6[0]]
 
                 table1.rows=rows
 			    puts "#{table1}"
 
+<<<<<<< HEAD:anuja_Assignment/anuja_work/new.rb
 
 
 
@@ -315,8 +386,17 @@ class Shop
 			    text "#{table1}"
 
 			end
+=======
+                    
+          Prawn::Document.generate("shopping.pdf") do
+           table rows
+          end
+               
+>>>>>>> c7c80fe349f8ba4c53592173431500ba7e3bf69b:anuja_Assignment/1Aug/shop.rb
 
                 puts "\n\nthank you, your product will be delivered within 10 working days."
+         	
+
                 statmt2=@con.prepare("select oid from Order2")
 		        statmt2.execute
 
@@ -325,7 +405,10 @@ class Shop
 			          end
 	               # id increment by 1
 			       @o_id=id2.next
+                
 
+
+          
                stmt11=@con.prepare("insert into Order2 values(?,?,?)")
                stmt11.execute(@o_id,@c_id, @total)
 
