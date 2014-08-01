@@ -177,9 +177,9 @@ class Cart
                    
                                 if (ch=~ /^[0-9]+$/) #check regular expression for correct rating
                                        
-                                        @choice=ch.to_i
+                                        choice=ch.to_i
                                          res50=@con.prepare("select * from product_storage where pid=?")
-                                         res50.execute(@choice)
+                                         res50.execute(choice)
                                          if (data=res50.fetch).nil? #validation for
 
                                                  puts"Enter valid product id......"
@@ -195,7 +195,7 @@ class Cart
                 
                     
                                     name1=@con.prepare("select pname from product_storage where pid=?")
-                                    name1.execute(@choice)
+                                    name1.execute(choice)
 
                                      data=name1.fetch
                                      nm=data[0]
@@ -206,7 +206,7 @@ class Cart
                                      no=gets.to_i
                                      #getting quqntity and prize of product 
                                      res5=@con.prepare("select quantity,prize from product_storage where pid=?")
-                                     res5.execute(@choice)
+                                     res5.execute(choice)
                                      row3=res5.fetch
                                      avilable=row3[0].to_i
                                      prize=row3[1].to_i
@@ -216,7 +216,7 @@ class Cart
 
                                             #insert user selected item into inline_item 
                                             res6=@con.prepare("insert into inline_item values(?,?,?)")
-                                            res6.execute(@cart_no,@choice,no)
+                                            res6.execute(@cart_no,choice,no)
                                             tot=prize*no
 
                                             #create unique bill no each time and store in to bill table
@@ -232,61 +232,19 @@ class Cart
 
                                                      #calculate remaining product quantity
                                                      totquqntity=avilable-no
-                                                     @grandtot=totquqntity.to_i
+                                                     grandtot=totquqntity.to_i
 
                                                      #update quqntity in product table 
                                                      res8=@con.prepare("update product_storage set quantity=(?) where pid=(?)")
-                                                     res8.execute(@grandtot,@choice)
+                                                     res8.execute(grandtot,choice)
                                                      #call to bill method
                                                      bill
                                         
                                 else
 
                                           puts"\n Sorry !!!#{no}  are not avilable we have only #{avilable} "
-                                          menu
                                 end
                          end
-
-                def delitem
-                
-                           res19=@con.prepare("select i.cart_no,i.pid,p.pname,i.quantity,(i.quantity*p.prize) from inline_item i
-                                ,product_storage p where i.cart_no=? and p.pid=i.pid")
-                            res19.execute(@cart_no)
-
-                             rows=[]
-                            
-                            table1=Terminal::Table.new
-                            rows<<['Name',@name,'your bill is as follow','','']
-                            #table1.headings=["cart_no","pid","#name","quantity","price"]
-                             
-                            rows<<[""]
-                            rows<<['cart_no','pid','name','quantity','price']
-                            rows<<[""]
-                            while row=res19.fetch do
-                                     rows<<[row[0],row[1],row[2],row[3],row[4]]
-                            end
-                            rows<<[""]
-                            rows<<['','','','TOTAL',@totbill]
-                            table1.rows=rows
-                            print"\n #{table1}" 
-                            puts 
-
-                            print"Enter product Id to delete Item from cart:"
-                            delt=gets.to_i
-
-                            res96=@con.prepare("select prize from product_storage where pid=?")
-                            res96.execute(delt)
-                            pr=res96.fetch
-                                cost=pr[0]
-                                @bill=@totbill-cost
-
-
-                            res95=@con.prepare("delete from inline_item where pid=?")
-                            res95.execute(delt)
-
-                            dispbill()
-
-                end         
                          
                def bill                 
 
@@ -300,43 +258,18 @@ class Cart
                         menu # call menu method
                             
                      elsif(@option=="n" or @option=="N") 
-
-                             @totbill=0     
+                            totbill=0     
                             res9=@con.query("select total from bill where cart_no=(select cart.cart_no from cart order by cart_no desc limit 1)")
                             while row4=res9.fetch_row do
-                                  @totbill+=row4[0].to_i
+                                  totbill+=row4[0].to_i
                             end  
-
-                            puts"Do u want to delete any items from cart ----->[y/n]:"
-                            ans=gets.chomp
-
-                            if(ans=="y")
-                                delitem
-                            else
-                                dispbill
-                            end      
-                           
                         
-                           
-                      end  
-                          else
-                            puts"Enter valid choice...."
-                            bill
-                
-                end
-
-                def dispbill
-                                         #gather all required fields from diffrent tables and
+                            #gather all required fields from diffrent tables and
                             res10=@con.prepare("select i.cart_no,i.pid,p.pname,i.quantity,(i.quantity*p.prize) from inline_item i
                                 ,product_storage p where i.cart_no=? and p.pid=i.pid")
                             res10.execute(@cart_no)
 
-                            @totbill=0     
-                            res19=@con.query("select total from bill where cart_no=(select cart.cart_no from cart order by cart_no desc limit 1)")
-                            while row0=res19.fetch_row do
-                                  @totbill+=row0[0].to_i
-                            end 
-
+                            
                              rows=[]
                             
                             table1=Terminal::Table.new
@@ -344,21 +277,32 @@ class Cart
                             #table1.headings=["cart_no","pid","#name","quantity","price"]
                              
                             rows<<[""]
+                            
                             rows<<['cart_no','pid','name','quantity','price']
                             rows<<[""]
                             while row=res10.fetch do
-                                     rows<<[row[0],row[1],row[2],row[3],row[4]]
+                             rows<<[row[0],row[1],row[2],row[3],row[4]]
+                              
                             end
+
                             rows<<[""]
-                            rows<<['','','','TOTAL',@totbill]
+                            rows<<['','','','TOTAL',totbill]
+
                             table1.rows=rows
                             print"\n #{table1}"
                             
                             Prawn::Document.generate("hello.pdf") do
                             table rows
-                end
 
+                          end  
+
+                          else
+                            puts"Enter valid choice...."
+                            bill
+                
+                end  
            end          
+
 end
 
 Cart.new

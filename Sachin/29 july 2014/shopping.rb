@@ -1,5 +1,5 @@
 require "mysql"
-
+require "prawn"
 require 'terminal-table'
 class Shoppingcart
 
@@ -23,11 +23,11 @@ class Shoppingcart
         	stmtttt=@con.query("select * from confirm")
 
 			if (record1=stmtt.fetch_row).nil?
-				@con.query("insert into products values(1,'shirt',200,200),
-														(2,'jeans',200,1200),
-														(3,'trouser',200,1000),
-														(4,'shoes',200,1500),
-														(5,'T-shirt',200,800)")
+				@con.query("insert into products values(1,'shirt',500,200),
+														(2,'jeans',500,1200),
+														(3,'trouser',500,1000),
+														(4,'shoes',500,1500),
+														(5,'T-shirt',500,800)")
 			end
 
 			#print the default value...
@@ -103,21 +103,39 @@ class Shoppingcart
         print "\n\n\t\tSelect Product Id : "
         pid=gets.chomp
         if pid=~/^[0-9]+$/
-		@p_id=pid
-        #quantity
-        print "\n\n\t\thow many quantity : "
-        @quantity_pc=gets.to_i
+			@p_id=pid
+        	quantity
+        	
+    		else
+         	puts "Enter proper id !!!"
+        	select 
+		end
+        
 
-        #add the items which you have to selected
-        stmt6=@con.prepare("insert into addcart values(?,?,?)")
-        stmt6.execute(@c_id,@p_id,@quantity_pc)
-    	else
-         puts "Enter proper id !!!"
-        select 
-
-        end
-       repeat
 	end
+
+	def quantity
+		print "\n\n\t\thow many quantity : "
+		quanti=gets.chomp
+        if quanti=~/^[0-9]+$/
+        	@quanti=quanti.to_i
+
+        	#add the items which you have to selected
+        	stmt6=@con.prepare("insert into addcart values(?,?,?)")
+        	stmt6.execute(@c_id,@p_id,@quanti)
+       		statement12=@con.prepare("select quantity from products where p_id=?")
+			statement12.execute(@p_id)
+			row3=statement12.fetch
+			@originalqantity=row3[0]
+			@totalquantity=@originalqantity-@quanti
+			statement13=@con.prepare("update products set quantity=? where p_id=?")			
+	 		statement13.execute(@totalquantity,@p_id)
+	 		repeat
+	 		else
+	 		puts "Enter only digits... !!!"
+	 		quantity
+    	end
+    end
 
     def repeat
 
@@ -147,6 +165,7 @@ class Shoppingcart
 			repeat
 		end	
 	end
+
 	#call the method order if you want a bill and confirmation
 	def order
            
@@ -180,23 +199,28 @@ class Shoppingcart
         @total=row6[0]
 
         puts "\n\n"
-        #print the data in the proper table format 
-        table1 = Terminal::Table.new
-        rows=[]
-        rows<<:separator
-        rows<<['','','','']
-        rows<<['Product Name','Rate','Quantity','Amount']
-		rows<<:separator
-		while row=stm.fetch do
+        #create a pdf file in and save in your drive
+        Prawn::Document.generate("bill.pdf") do
+
+
+        	#print the data in the proper table format 
+        	table1 = Terminal::Table.new
+        	rows=[]
+        	rows<<:separator
+        	rows<<['','','','']
+        	rows<<['Product Name','Rate','Quantity','Amount']
+			rows<<:separator
+			while row=stm.fetch do
 				   
-		   rows<<[row[0],row[2],row[1],row[3]]
-		end
-		rows<<:separator
-	    rows<<['','','Total',row6[0]]
-        table1.rows=rows
-	    puts "#{table1}"
-       	
-       	puts "\n\n\t\t!!!!!!!!!!!!!Thnak you...Visit again !!!!!!!!!!!!!!!!\n\n"
+		   		rows<<[row[0],row[2],row[1],row[3]]
+			end
+			rows<<:separator
+	    	rows<<['','','Total',row6[0]]
+        	table1.rows=rows
+	    	text "#{table1}"
+       		puts "\n\n\t!!!!!!!!!!!!!Print the bill in your drive with pdf format!!!!!!!!!!!!!\n\n"
+       		puts "\n\n\t\t!!!!!!!!!!!!!Thank you...Visit again !!!!!!!!!!!!!!!!\n\n"
+        end
         statmt2=@con.prepare("select o_id from confirm")
         statmt2.execute
 
@@ -208,6 +232,8 @@ class Shoppingcart
 
         stmt11=@con.prepare("insert into confirm values(?,?,?)")
         stmt11.execute(@o_id,@c_id, @total)
+
+      
 	end
 end
 Shoppingcart.new
