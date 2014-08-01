@@ -247,7 +247,14 @@ class Mall
 			puts "\n\n\t\tInvalid Quantity!!!...Enter Correct"
 		end
 
-		puts "\n\n\t\tRecorde successfully updated...."
+		puts "\n\n\t\tRecorde successfully 
+
+
+
+
+
+
+d...."
 
 		rows=[]
 
