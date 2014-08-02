@@ -116,7 +116,7 @@ class Mall
 	end
 #to get user choice for product
 	def choice_select
-
+	loop do
 		loop do
 			print "\n\t\tEnter product Id: "
 	#get product id from user
@@ -125,6 +125,11 @@ class Mall
 			break if @choice>0 and @choice<@count+1
 			puts "\n\n\t\tInvalid Id!!!...Enter Correct"
 		end
+			statement=@connection.prepare("select * from inline_products where p_id=? and card_no=?")
+			statement.execute(@choice,@card_no)
+			break if (recordset=statement.fetch).nil?
+			puts "\n\n\t\tYou already purchased this product....!!!"
+	end
 	#call methods product details
 		product_details(@choice)
 	end
