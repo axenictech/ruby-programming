@@ -1,5 +1,6 @@
-require "mysql"
 
+require "mysql"
+require "prawn"
 require 'terminal-table'
 class Shop
 
@@ -8,7 +9,7 @@ class Shop
 	begin
 
 	# mysql connectivity
-			@con=Mysql.connect("localhost","root","root")
+			@con=Mysql.connect("localhost","root","129129129")
     
     # create database if not exists
 			@con.query("create database if not exists\ abc")
@@ -72,12 +73,13 @@ class Shop
            rows=[]
 		
 		    	while row=stmt1.fetch_row do
-				   table.headings=['id','name','price','quantity']
+
+				   table.headings=['id','name','quantity','price']
 				   rows<<[row[0],row[1],row[2],row[3]]
 			    end
 			table.rows=rows
 			puts "#{table}"
-	    puts "\n\t\t*************Welcome in Shri Mall********************"
+	    puts "\n\t\t*************Welcome in Magic Mall********************"
 	    puts "\n\t\tFill the following details :- "
 	    #call register_name method
 	     register_name
@@ -87,15 +89,25 @@ class Shop
         
          print "\n\n\t\tselect Product Id : "
          pid=gets.chomp
-         @p_id=pid
+         @p_id=pid.to_i
 
          print "\n\n\t\tEnter how many quantity you want to purches : "
          @quantity_pc=gets.to_i
 
+         res11=@con.prepare("select quantity from product where pid=?")
+         res11.execute(@p_id)
+         data=res11.fetch
+         	totquan=data[0].to_i
+
+         	@grand=totquan-@quantity_pc
+         	@grandtot=@grand.to_i
+
+
          stmt6=@con.prepare("insert into inline1 values(?,?,?)")
          stmt6.execute(@c_id,@p_id,@quantity_pc)
         
-      
+         stmt18=@con.prepare("update product set quantity=(?) where pid=(?)")
+         stmt18.execute(@quantity_pc,@p_id)      
 
 
          select_again
@@ -196,7 +208,7 @@ class Shop
 		ensure
 
 			@con.close if @con
-k
+
 		end
 
 	end
@@ -268,9 +280,12 @@ k
          stmt10.execute(@c_id)
          row6=stmt10.fetch
 
+		res20=@con.prepare("update product  set quantity=? where pid=?")
+		res20.execute(@grandtot,@p_id)		
+
          @total=row6[0]
 
-        table1 = Terminal::Table.new
+         table1 = Terminal::Table.new
                rows=[]
                table1.headings=['name','cnt no','Address']
                rows<<[row2[0],row2[1],row2[2]]
@@ -289,7 +304,36 @@ k
                 table1.rows=rows
 			    puts "#{table1}"
 
+
+
+
+
+         
+          Prawn::Document.generate("hello.pdf") do
+        table1 = Terminal::Table.new
+               rows=[]
+               table1.headings=['name','cnt no','Address']
+               rows<<[row2[0],row2[1],row2[2]]
+               rows<<:separator
+               rows<<['','','','']
+               rows<<['product name','per/product Rs','quantity','Price']
+		        rows<<:separator
+		    	while row=stmt9.fetch do
+				   
+				   rows<<[row[0],row[2],row[1],row[3]]
+			    
+			    end
+			    rows<<:separator
+	            rows<<['','','Total',row6[0]]
+
+                table1.rows=rows
+			    text "#{table1}"
+
+			end
+
                 puts "\n\nthank you, your product will be delivered within 10 working days."
+         	
+
                 statmt2=@con.prepare("select oid from Order2")
 		        statmt2.execute
 
@@ -298,6 +342,8 @@ k
 			          end
 	               # id increment by 1
 			       @o_id=id2.next
+
+
 
                stmt11=@con.prepare("insert into Order2 values(?,?,?)")
                stmt11.execute(@o_id,@c_id, @total)

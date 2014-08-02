@@ -21,25 +21,24 @@ class Ticket
 	#create table for ticket
 			@connection.query("create table if not exists\ ticket
 				(pass_id int,ticket_no int,flit_id int)")
-	#create table for flite
-			@connection.query("create table if not exists\ flite
-				(from_city varchar(20),to_city varchar(20),payment int,flite_id int)")
-	#fetch recorde from flite
-			statement=@connection.query("select * from flite")
+	#create table for flight
+			@connection.query("create table if not exists\ flight
+				(from_city varchar(20),to_city varchar(20),payment int,flight_id int)")
+	#fetch recorde from flight
+			statement=@connection.query("select * from flight")
 	#check recodset in null
 			if (recordset=statement.fetch_row).nil?
-		#if recodset null insert values into flite
-					@connection.query("insert into flite values 
-										('pune','mumbai',1000,1),
-										('pune','goa',1500,2),
-										('pune','delhi',2000,3),
-										('pune','kolkata',2000,4),
-										('pune','chennai',2000,5),
-										('pune','banglore',2000,6),
-										('pune','dubai',5000,7),
-										('pune','uk',25000,8),
-										('pune','usa',20000,9),
-										('pune','paris',10000,10)")
+		#if recodset null insert values into flight
+					@connection.query("insert into flight values 
+									('Mumbai','Pune',1000,1)
+									('Mumbai','Banglore'1500,2)
+									('Mumbai','Nagpur'2000,3)
+									('Mumbai','Goa'500,4)
+									('Mumbai','dubai',4000,5)
+									('Mumbai','uk',7000,6)
+									('Mumbai','us',9000,7)
+									('Mumbai','Singapore',5000,8)")
+
 			end
 
 			puts "\n\n\t\t\t\tFlight Book\n\n"
@@ -58,7 +57,7 @@ class Ticket
 		end
 
 	end
-# menu method for menu
+	# menu method for menu
 	def menu
 
 		print "\t\t\t\tEnter Your Choice: "
@@ -68,7 +67,7 @@ class Ticket
 		case choice
 
 			when choice=1
-				puts "\n\n\t\t\t\tRegister here...Fill all data\n"
+				puts "\n\n\t\t\t\tGive Your All your information\n"
 		# call method register_name
 				register_name
 			when choice=2
@@ -82,6 +81,45 @@ class Ticket
 		end
 	end
 
+	def register_name
+
+		print "\n\n\t\t\t\tEnter Your Name: "
+	# passanger name
+		name=gets.chomp
+		name_size=name.length
+	#check validation
+		if (name=~ /^[A-Z a-z]+$/) and (name_size>2 and name_size<21)
+	# assign to istance variable name
+			@name=name
+	#call check_name_already_exits method
+			check_name_already_exits
+	# call register_dob method
+			register_dob
+		else
+			puts "\n\n\t\t\t\tInvalid Name!!!...Enter Correct"
+	# call method register_name
+			register_name
+		end
+	end
+
+	def check_name_already_exits
+	#excute query
+		stmtt=@connection.prepare("select id,name from passenger where name=?")
+		stmtt.execute(@name)
+	#fetch record in recordset
+		recordsett=stmtt.fetch
+	#check recordset is nil
+		if recordsett.nil?
+		else
+			puts "\n\n\t\t\t\tYou are already registerd...!!!"
+			@id=recordsett[0]
+			name=recordsett[1]
+			puts "\n\n\t\t\t\tPassanger ID:- #{@id}"
+			puts "\n\n\t\t\t\tPassanger Name:- #{name}"
+		#call book method
+			book
+		end
+	end
 	def register_name
 
 		print "\n\n\t\t\t\tEnter Your Name: "
