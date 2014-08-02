@@ -15,11 +15,11 @@ class Mall
 	
 		begin
 	#connect to mysql database
-			@connection=Mysql.connect("localhost","root","129129129")
+			@connection=Mysql.connect("localhost","root","mysql")
 	#create database
-			@connection.query("create database if not exists\ shoping_card")
+			@connection.query("create database if not exists\ shoping_cart")
 	#use database
-			@connection.query("use shoping_card")
+			@connection.query("use shoping_cart")
 	#create table for products
 			@connection.query("create table if not exists\ products
 				(p_id int primary key,p_name varchar(20),p_stock int, p_price int)")
