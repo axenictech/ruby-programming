@@ -210,7 +210,7 @@ class Ticket
 		end
 	end
 
-	def flight
+	def flite
 
 			stmt2=@connection.prepare("select flight_id, payment from flight where from_city=? and to_city=?")
 			stmt2.execute(@from_city,@to_city)
@@ -271,7 +271,7 @@ class Ticket
 				@ticket_no=rs[0].next
 			end
 			stmt4=@connection.prepare("insert into ticket values(?,?,?)")
-			stmt4.execute(@id,@ticket_no,@flite_id)
+			stmt4.execute(@id,@ticket_no,@flight_id)
 			@connection.commit
 
 			puts "\n\tYour ticket is confirme...."
@@ -280,31 +280,31 @@ class Ticket
 
 	def print_ticket
 
-			stmt6=@connection.prepare("select pass_id, flit_id from ticket where ticket_no=?")
+			stmt6=@connection.prepare("select pass_id, flight_id from ticket where ticket_no=?")
 			stmt6.execute(@ticket_no)
 			recs=stmt6.fetch
 			@pass_id=recs[0]			
-			@flit_id=recs[1]
+			@flite_id=recs[1]
 			stmt7=@connection.prepare("select name from passenger where id=?")
 			stmt7.execute(@pass_id)
 			res=stmt7.fetch	
 			@name=res[0]
-			stmt8=@connection.prepare("select from_city, to_city, payment from flite where flite_id=?")
-			stmt8.execute(@flit_id)
+			stmt8=@connection.prepare("select from_city, to_city, payment from flight where flight_id=?")
+			stmt8.execute(@flight_id)
 
 			while record=stmt8.fetch do
 			@from_city=record[0]
 			@to_city=record[1]
 			@payment=record[2]
 			end
-			puts "\n\n\n\t$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
+			puts "\n\n\n\t@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 			puts "\n\t\tYour Ticket is Confirmed"
 			puts "\n\t\tTicket No: #{@ticket_no}"
-			puts "\n\t\tPassanger Name: #{@name}"
+			puts "\n\t\tName of Passenger: #{@name}"
 			puts "\n\t\tJourney From #{@from_city} To #{@to_city}"
 			puts "\n\t\tYou had paid. #{@payment}"
 			puts "\n\t\tHave a Safe and happy journey.!!"
-			puts "\n\t\t$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
+			puts "\n\t\t@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 
 			book_plus
 	end
