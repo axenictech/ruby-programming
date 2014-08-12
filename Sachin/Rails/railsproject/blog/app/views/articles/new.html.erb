@@ -1,0 +1,59 @@
+<h1>New Article</h1>
+
+
+<%= form_for :article, url: articles_path do |f| %>
+
+<% if @article.errors.any? %>
+    <%= pluralize(@article.errors.count, "error") %>
+    <ul>
+    <% @article.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+
+  <% end %>
+
+<table>
+	<p>
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </p>
+ 
+  <p>
+    <%= f.label :text %><br>
+    <%= f.text_area :text %>
+  </p>
+ 
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
+
+</table>
+
+<h1>All blog information</h1>
+<table border="1">
+  <tr>
+    <th>Title</th>
+    <th>Text</th>
+    <th colspan="3"></th>
+  </tr>
+ 
+  <% @articles.each do |article| %>
+    <tr>
+      <td><%= article.title %></td>
+      <td><%= article.text %></td>
+      <td><%= link_to 'Delete', article_path(article),method: :delete, data: { confirm: 'Are you sure?' } %>
+      </td>
+      <td><%= link_to 'Edit', edit_article_path(article) %></td>
+      <td><%= link_to 'comment',article_path(article)%></td>
+    </tr>
+
+ <%end %>
+
+</table>
+ <%= link_to 'Back', articles_path %>
+
+
+
