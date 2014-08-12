@@ -15,11 +15,11 @@ class Mall
 	
 		begin
 	#connect to mysql database
-			@connection=Mysql.connect("localhost","root","129129129")
+			@connection=Mysql.connect("localhost","root","mysql")
 	#create database
-			@connection.query("create database if not exists\ shoping_card")
+			@connection.query("create database if not exists\ shoping_cart")
 	#use database
-			@connection.query("use shoping_card")
+			@connection.query("use shoping_cart")
 	#create table for products
 			@connection.query("create table if not exists\ products
 				(p_id int primary key,p_name varchar(20),p_stock int, p_price int)")
@@ -116,7 +116,7 @@ class Mall
 	end
 #to get user choice for product
 	def choice_select
-
+	loop do
 		loop do
 			print "\n\t\tEnter product Id: "
 	#get product id from user
@@ -125,6 +125,11 @@ class Mall
 			break if @choice>0 and @choice<@count+1
 			puts "\n\n\t\tInvalid Id!!!...Enter Correct"
 		end
+			statement=@connection.prepare("select * from inline_products where p_id=? and card_no=?")
+			statement.execute(@choice,@card_no)
+			break if (recordset=statement.fetch).nil?
+			puts "\n\n\t\tYou already purchased this product....!!!"
+	end
 	#call methods product details
 		product_details(@choice)
 	end
