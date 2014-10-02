@@ -1,0 +1,18 @@
+
+<table border="2">
+	<tr>
+		<th>Project_Name</th>
+		<th>Task</th>
+	</tr>
+
+	<% @projects.each do |project|%>
+	<tr>
+		<td><%= project.name%></td>
+		<td><%= project.task%></td>
+	</tr>
+
+	<% end %>
+
+</table>
+
+	

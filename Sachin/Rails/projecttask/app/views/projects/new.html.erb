@@ -1,0 +1,20 @@
+<h2>Welcome projects with task</h2>
+<%= form_for :project, url: projects_path do |f| %>
+
+<table>
+	<tr>
+		<td><%= f.label :name %></td>
+		<td><%= f.text_field :name %></td>
+	</tr>
+
+		<tr>
+		<td><%= f.label :Project_Name %></td>
+		<td><%= f.text_field :task %></td>
+		
+	</tr>
+	<tr>
+		<td><%= f.submit :Submit %></td>
+	</tr>
+</table>
+<% end %>
+
