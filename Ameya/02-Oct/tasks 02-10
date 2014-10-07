@@ -1,22 +1,22 @@
  attr_accessor example *
 10 string manipulation example *
-6-7 hash manipulation examples
+6-7 hash manipulation examples *
 Array manipulation examaples - add,sub,multp,merging,deletion *
-Relational operators
+Relational operators *
 simple if statement *
 if else statement *
 case statement *
 while loop *
-until loop
+until loop *
 iterators example *
 collect method example *
 for each loop *
-file read write
-array manipulation EX- a[]={a,,c,d} b[]={x,y,z} output:- c[]={ax,by,cz}
+file read write *
+array manipulation EX- a[]={a,,c,d} b[]={x,y,z} output:- c[]={ax,by,cz} *
 addition without using sum method
 factorial *
 string manipulation EX- s1=abc,s2=xyz output c="axbycz" *
-bubble sort
+bubble sort *
 swap without temp *
 fibonacci example *
 customized methods Ex add , length

@@ -30,7 +30,7 @@ begin
 	end	 	
 
 	print("Do you Want to Continue[Y/N] : ")
-	@option=gets		
-														
-	end while(@option=~/^[y]+$/)
+	@option=gets.chomp		#to eliminate '\n' characters
+	
+	end while(@option.eql?"Y")
 end
