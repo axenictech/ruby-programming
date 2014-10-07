@@ -9,6 +9,7 @@ class ArrayM
 	puts "Addition" ,a+b
 	puts "Addition" ,c+d
 	puts "Subtraction" ,a-b
+
 	
 
 end
