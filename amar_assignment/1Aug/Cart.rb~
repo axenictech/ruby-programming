@@ -10,7 +10,8 @@ class Cart
         def initialize
             begin
                 
-               #@connet to database                @con=Mysql.connect("localhost","root","129129129") 
+               #@connet to database 
+               @con=Mysql.connect("localhost","root","129129129") 
                 #check for database if not present then create 
                 # use shopping database    
                @con.query("CREATE DATABASE IF NOT EXISTS \ shopping") 
