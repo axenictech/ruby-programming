@@ -1,0 +1,5 @@
+s1="abc"
+s2="xyz"
+puts "String s1 : #{s1}"
+puts "String s2 : #{s2}"
+puts "String c : #{s1+s2}"
