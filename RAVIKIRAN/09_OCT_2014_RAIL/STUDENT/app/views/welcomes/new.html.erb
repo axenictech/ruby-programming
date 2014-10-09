@@ -1,0 +1,15 @@
+<h1>STUDENT DETAILS</h1>
+<%= form_for @welcome, url: welcomes_path do|f| %>
+<table border=1>
+	<tr>
+		<td><%= f.label :"STUDENT NAME :"%></td>
+		<td><%= f.text_field :s_name%></td>
+	</tr>
+
+	<tr>
+		<td><%= f.label :"age :"%></td>
+		<td><%= f.text_field :s_age%></td>
+	</tr>
+</table><br>
+<%= f.submit :"INSERT"%> 
+<%end%>

@@ -1,0 +1,19 @@
+<h1>Home</h1>
+<%=link_to 'Add School', new_school_path%>
+<table border="1">
+	<tr>
+		<th>School Name</th>
+		<th>School Address</th> 
+	</tr>
+
+<%@schools.each do |f|%>
+	
+	<tr>
+		<td><%=f.school_name%></td>
+		<td><%=f.school_address%></td>
+		<td><%=link_to 'Edit', edit_school_path(f)%></td>
+		<td><%=link_to 'Delete',school_path(f), method: :delete, data: {confirm: 'Are you sure?'}%></td>
+	</tr>
+
+<%end%>
+</table>
