@@ -1,0 +1,32 @@
+<%= form_for @school do |f| %>
+
+<% if @school.errors.any? %>
+	<div id="error_explanation">
+    	<h2><%= pluralize(@school.errors.count, "error") %> prohibited
+      	School Informaion is saved:</h2>
+    	<ul>
+    		<% @school.errors.full_messages.each do |msg| %>
+      		<li><%= msg %></li>
+    		<% end %>
+    	</ul>
+  	</div>
+<% end %>
+
+  <table>
+    <tr>
+    	<td><%= f.label :'School Name' %></td>
+    	<td><%= f.text_field :school_name %></td>
+  	</tr>
+    
+    <tr>
+    	<td><%= f.label :'School Address' %></td>
+    	<td><%= f.text_field :school_address %></td>
+  	</tr>
+    
+    <tr>
+    	<td colspan="2"><%= f.submit :'UPDATE' %></td>
+    </tr>
+  </table>
+<% end %>
+
+<%=link_to 'Back', schools_path%>

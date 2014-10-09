@@ -1,0 +1,11 @@
+<%= link_to 'Add article', new_artical_path %>
+
+<% @articals.each do |f| %>
+<table border="2">
+	<tr>
+		<td> <%=f.title%> </td>
+		<td> <%=f.text%> </td>
+	</tr>
+	
+</table>
+<%end%>

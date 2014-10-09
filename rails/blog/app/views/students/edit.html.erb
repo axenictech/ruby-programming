@@ -1,0 +1,10 @@
+<h1>Edit Student</h1>
+<%= form_for @student do |f|%>
+<br><%=f.label :age%>
+<%=f.text_field :age%>
+<br><%=f.label :roll%>
+<%=f.text_field :roll%>
+<br><%=f.label :marks%>
+<%=f.text_field :marks%><br>
+<%= f.submit %>
+<%end%>

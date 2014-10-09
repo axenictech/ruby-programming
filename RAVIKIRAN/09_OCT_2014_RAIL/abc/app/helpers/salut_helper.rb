@@ -1,0 +1,2 @@
+module SalutHelper
+end
