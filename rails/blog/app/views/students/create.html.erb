@@ -1,0 +1,11 @@
+
+<h1>Hello Students</h1>
+<%@student.each do |f|%>
+<br>Age 
+<%=f.age%> Role 
+<%=f.roll%>Marks
+<%=f.marks%> <%=link_to 'edit',edit_student_path(f)%>
+
+<br>
+<%end%>
+ 
