@@ -1,0 +1,13 @@
+<p>
+  <strong>Name: </strong>
+  <%= @article.name %>
+</p>
+ 
+<p>
+  <strong>Age: </strong>
+  <%= @article.age %>
+</p>
+
+
+<%= link_to 'Show all name',articles_path %>
+<%= link_to 'Edit', articles_edit_path(@article) %>
