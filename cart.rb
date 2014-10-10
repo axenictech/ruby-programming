@@ -18,6 +18,7 @@ class Cart
 		    	i.execute(6,"Chocolate",2,30)
 		    end
 		    puts "Menu Inserted.."
+		 
 		    res=@con.query("select * from Menu")
 	       rows=[]
 	       table=Terminal::Table.new

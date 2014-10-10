@@ -1,0 +1,18 @@
+<h1>In show all </h1>
+<%= form_for @students, url: students_path do |sh| %>
+<table>
+
+<tr>
+	<th><%= sh.label :Name %></th>
+	<th><%= sh.label :Address %></th>
+	<th><%= sh.label :Marks %></th>
+</tr>
+<tr>
+	<td><%= %></td>
+	<td><%= %></td>
+	<td><%= %></td>
+</tr>
+
+
+</table>
+<% end %>

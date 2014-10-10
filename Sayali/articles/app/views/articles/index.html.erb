@@ -1,0 +1,20 @@
+<h1>Listing Names</h1>
+
+<table border="1">
+	<tr>
+		<th>Name:</th>
+		<th>Age:</th>
+		<th colspan="2"></th>
+	</tr>
+
+<% @articles.each do |a| %>
+ 	<tr>
+ 		<td><%= a.name %></td>
+ 		<td><%= a.age %></td>
+ 		<td><%= link_to 'Edit', articles_edit_path(a)%></td>
+ 		<td><%= link_to 'Delete',article_path(a),method: :Delete,data:{confirm: 'Are you sure?' } %></td>
+ 	</tr>
+ <%end%>
+ </table>
+
+ <%= link_to 'New article',articles_new_path %>
