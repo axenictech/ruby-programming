@@ -1,0 +1,23 @@
+<%= link_to 'Add new student', new_student_path%>
+
+<table border="2">
+
+<tr>
+	<th>Name</th>
+	<th>Address</th>
+	<th>Marks</th>
+	<th></th>
+	<th></th>
+
+</tr>
+<% @students.each do |f| %>
+<tr>
+	<td><%= f.name%></td>
+	<td><%= f.address%></td>
+	<td><%= f.marks %></td>
+	<td><%= link_to 'Edit', edit_student_path(f)%></td>
+	<td><%= link_to 'Delete',student_path(f),method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>
+<% end %>
+
+</table>
