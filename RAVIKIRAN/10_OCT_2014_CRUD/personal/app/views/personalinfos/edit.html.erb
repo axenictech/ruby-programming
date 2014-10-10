@@ -1,0 +1,61 @@
+<h1>Editing article</h1>
+ 
+<%= form_for @per do |f| %>
+
+<% if @per.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@per.errors.count, "error") %> prohibited this form from being saved: </h2>
+    	<ul>
+    		<% @per.errors.full_messages.each do |msg| %>
+      			<li><%= msg %></li>
+    		<% end %>
+    	</ul>
+  </div>
+<% end %>
+  
+  
+
+
+ <table border=1>
+	<tr>
+		<td> <%= f.label :'first name : ' %> </td>
+		<td> <%= f.text_field :first_nanme %> </td>
+	</tr>
+
+	<tr>
+		<td> <%= f.label :'last name : ' %> </td>
+		<td> <%= f.text_field :last_name %> </td>
+	</tr>
+
+	<tr>
+		<td> <%= f.label :'address : ' %> </td>
+		<td> <%= f.text_field :address %> </td>
+	</tr>
+	
+	<tr>
+		<td> <%= f.label :'age : ' %> </td>
+		<td> <%= f.text_field :age %> </td>
+	</tr>
+
+	<tr>
+		<td> <%= f.label :'email : ' %> </td>
+		<td> <%= f.text_field :email %> </td>
+	</tr>
+
+	<tr>
+		<td> <%= f.label :'mobile : ' %> </td>
+		<td> <%= f.text_field :mobile %> </td>
+	</tr>
+
+	<tr>
+		<td> <%= f.label :'blood group : ' %> </td>
+		<td> <%= f.text_field :bloodgroup %> </td>
+	</tr>
+	
+	<tr>
+		<td> <%= f.label :'country : ' %> </td>
+		<td> <%= f.text_field :country %> </td>
+	</tr>
+</table> <br>
+<%= f.submit :"UPDATE" %>
+<% end %>
