@@ -1,0 +1,52 @@
+<h1>Insert Person</h1>
+ <%= form_for @laptop, url: laptops_personinsert_path do |s| %>
+ <% if @laptop.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@laptop.errors.count, "error") %> prohibited
+      this person from being saved:</h2>
+    <ul>
+    <% @laptop.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+ <p>
+ <%= s.label :FirstName %><br>
+ <%= s.text_field :fname %>
+ </p>
+ <p>
+ <%= s.label :LastName %><br>
+ <%= s.text_field :lname %>
+ </p>
+ <p>
+ <%= s.label :Address %><br>
+ <%= s.text_field :address %>
+ </p>
+ <p>
+ <%= s.label :Age %><br>
+ <%= s.text_field :age %>
+ </p>
+ <p>
+ <%= s.label :Email %><br>
+ <%= s.text_field :email %>
+ </p>
+ <p>
+ <%= s.label :Contact %><br>
+ <%= s.text_field :phone %>
+ </p>
+ <p>
+ <%= s.label :Nationality %><br>
+ <%= s.text_field :nationality %>
+ </p>
+ <p>
+ <%= s.label :BloodGroup %><br>
+ <%= s.text_field :bloodgroup %>
+ </p>
+ <p>
+ <%= s.label :Country %><br>
+ <%= s.text_field :country %>
+ </p>
+ <%= s.submit :Submit %>
+
+ <% end %>
