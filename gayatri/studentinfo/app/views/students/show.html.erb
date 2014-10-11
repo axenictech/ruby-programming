@@ -1,0 +1,38 @@
+<h3>In Show</h3>
+
+ <p>
+ <strong>Name   :</strong>
+ <%= @student.name %>
+ </p>
+ <p>
+ <strong>Address:</strong>
+ <%= @student.address %>
+ </p>
+ <p>
+ <strong>Marks  :</strong>
+ <%= @student.marks %>
+ </p>
+
+ <br><br>
+ 
+ <table border="2">
+
+<tr>
+	<th>Name</th>
+	<th>Address</th>
+	<th>Marks</th>
+	<th></th>
+	<th></th>
+
+</tr>
+<% @students.each do |f| %>
+<tr>
+	<td><%= f.name%></td>
+	<td><%= f.address%></td>
+	<td><%= f.marks %></td>
+	<td><%= link_to 'Edit', edit_student_path(f)%></td>
+	<td><%= link_to 'Delete',student_path(f),method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>
+<% end %>
+
+</table>

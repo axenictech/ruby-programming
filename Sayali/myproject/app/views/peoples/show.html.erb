@@ -1,0 +1,71 @@
+<div align="left">
+<h1>Person Details:</h1>
+
+<p>
+<strong>Name:</strong>
+<%=@people.firstname %>
+<%=@people.lastname %>
+</p>
+
+<p>
+<strong>Age:</strong>
+<%=@people.age %>
+</p>
+
+<p>
+<strong>Address:</strong>
+<%=@people.address %>
+</p>
+
+<p>
+<strong>Blood Group:</strong>
+<%=@people.bloodGroup %>
+</p>
+
+<p>
+<strong>Phone Number:</strong>
+<%= @people.phoneNo %>
+</p>
+
+<p>
+<strong>Email:</strong>
+<%= @people.email %>
+</p>
+
+<p>
+<strong>Nationality:</strong>
+<%= @people.nationality %>
+</p>
+
+<p>
+<strong>Country:</strong>
+<%= @people.country%>
+</p>
+</div>
+
+<%= link_to 'Edit',edit_people_path(@people) %>
+<%= link_to 'Show all peoples',people_path(@people) %>
+
+<div align="right">
+<h1>Fill Bank Details:</h1>
+<%= form_for ([@people, @people.bankdetails.build]) do |f| %>
+  <p>
+  	<%= f.label :'Bank Name' %>
+  	<%= f.text_field :bankName %>
+  </p>
+  <p>
+  	<%= f.label :'Account Number'%>
+  	<%= f.text_field :accountNo %>
+  </p>
+  <p>
+  	<%= f.label :'Salary' %>
+  	<%= f.text_field :salary %>
+  </p>
+  <%end%>
+ </div>
+
+ 
+
+
+
+
