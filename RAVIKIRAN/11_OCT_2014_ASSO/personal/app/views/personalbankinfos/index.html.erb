@@ -1,0 +1,39 @@
+<h1>Welcome to Bank</h1>
+
+<%= form_for @bank, url:{action:'create'},method: :post do |f| %>
+
+<% if @bank.errors.any? %>
+	<div id="error_explanation">
+    	<h2><%= pluralize(@bank.errors.count, "error") %> prohibited
+      	Bank Informaion is saved:</h2>
+    	<ul>
+    		<% @bank.errors.full_messages.each do |msg| %>
+      		<li><%= msg %></li>
+    		<% end %>
+    	</ul>
+  	</div>
+<% end %>
+
+  <table border=1>
+    <tr>
+    	<td><%= f.label :'Bank Name' %></td>
+    	<td><%= f.text_field :bank_name %></td>
+  	</tr>
+    
+    <tr>
+    	<td><%= f.label :'Account No.' %></td>
+    	<td><%= f.text_field :acc_no %></td>
+  	</tr>
+
+  	<tr>
+    	<td><%= f.label :'Salary' %></td>
+    	<td><%= f.text_field :salary %></td>
+  	</tr>                  
+    
+    <tr>
+    	<td colspan="2"><%= f.submit :'SAVE' %></td>
+    </tr>
+  </table>
+<% end %>
+
+<%=link_to 'Back', personalinfos_path%>

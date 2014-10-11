@@ -1,0 +1,37 @@
+<h1><%= link_to 'Add Person Details', new_personalinfo_path%></h1>
+
+
+<table border="2">
+	<tr>
+		<th> FIRST NAME </th>
+		<th> LAST NAME </th>
+		<th> ADDRESS </th>
+		<th> AGE </th>
+		<th> EMAIL </th>
+		<th> MOBILE </th>
+		<th> BLOODGROUP </th>
+		<th> COUNTRY </th>
+		<th> UPDATE </th>
+		<th> DELETE </th>
+	</tr>
+<% @pers.each do |f| %>
+	<tr>
+		<td> <%= link_to f.first_nanme, new_personalinfo_path%> </td>
+		<td> <%=f.last_name%> </td>
+		<td> <%=f.address%> </td>
+		<td> <%=f.age%> </td>
+		<td> <%=f.email%> </td>
+		<td> <%=f.mobile%> </td>
+		<td> <%=f.bloodgroup%> </td>
+		<td> <%=f.country%> </td>
+		<td><%= link_to 'Edit', edit_personalinfo_path(f) %></td>
+		<td><%= link_to 'DELETE', personalinfo_path(f),
+                    method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Save bank details', personalinfo_personalbankinfos_path(f.id) %></td>
+        <td><%= link_to 'show details', personalinfo_path(f) %></td>
+	</tr>
+	<%end%>
+
+</table>
+
+
