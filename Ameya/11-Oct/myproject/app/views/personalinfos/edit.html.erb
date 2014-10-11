@@ -1,0 +1,64 @@
+<%= form_for @emp do |f| %>
+
+<% if @emp.errors.any? %>
+  <div id="error_explanation">
+      <h2><%= pluralize(@emp.errors.count, "error") %> prohibited
+        Employee Informaion is saved:</h2>
+      <ul>
+        <% @emp.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+<% end %>
+
+  <table>
+    <tr>
+      <td><%= f.label :'First Name' %></td>
+      <td><%= f.text_field :first_name %></td>
+    </tr>
+    
+    <tr>
+      <td><%= f.label :'Last Name' %></td>
+      <td><%= f.text_field :last_name %></td>
+    </tr>
+
+    <tr>
+      <td><%= f.label :'Address' %></td>
+      <td><%= f.text_field :address %></td>
+    </tr>
+    
+    <tr>
+      <td><%= f.label :'Age' %></td>
+      <td><%= f.text_field :age %></td>
+    </tr>
+
+    <tr>
+      <td><%= f.label :'Phone No.' %></td>
+      <td><%= f.text_field :ph_no %></td>
+    </tr>
+
+    <tr>
+      <td><%= f.label :'Email' %></td>
+      <td><%= f.text_field :email %></td>
+    </tr>
+    
+    <tr>
+      <td><%= f.label :'Blood Group' %></td>
+      <td><%= f.text_field :blood_group %></td>
+    </tr>
+
+    <tr>
+      <td><%= f.label :'Country' %></td>
+      <td><%= f.text_field :country %></td>
+    </tr>                                                 
+    
+    <tr>
+      <td colspan="2"><%= f.submit :'UPDATE' %></td>
+    </tr>
+  </table>
+<% end %>
+
+<%=link_to 'Update Bank Informaion', edit_personalinfo_bankinfo_path%>
+
+<%=link_to 'Back', personalinfos_path%>
