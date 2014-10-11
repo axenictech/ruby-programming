@@ -1,7 +1,9 @@
 <%= link_to 'Add new Person', laptops_welcome_path%>
 
 <br><br>
-
+<% if @laptops.empty? %>
+<h3>No Records Found</h3>
+<% else %>
 <table border="2">
 
 <tr>
@@ -39,3 +41,4 @@
 <% end %>
 
 </table>
+<% end %>

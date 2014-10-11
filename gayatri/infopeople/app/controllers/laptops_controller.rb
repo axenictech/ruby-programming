@@ -35,7 +35,8 @@ class LaptopsController < ApplicationController
   end
   def destroy
   	@laptop=Laptop.find(params[:id])
-  	@laptop.destroy
+  	@laptop.bank.destroy_all
+    @laptop.destroy
   	redirect_to laptops_path
   end
 

@@ -1,15 +1,19 @@
 class BanksController < ApplicationController
   def index
-    @banks = Bank.all
+   
+    @laptop = Laptop.find(params[:laptop_id])
+    @banks =@laptop.bank.all 
+   
   end
+
   def new
   	@bank = Bank.new
+    @laptop = Laptop.find(params[:laptop_id])
   end
 
   def create 
-
-    @bank = Bank.new(bank_params)
-    if @bank.save
+    @laptop = Laptop.find(params[:laptop_id])
+    if @laptop.bank.create(bank_params)
       redirect_to laptops_path
     else
       render 'new'
@@ -17,8 +21,31 @@ class BanksController < ApplicationController
   end
 
   def show
+     @laptop = Laptop.find(params[:id])
+  #  @bank = Bank.find(params[:id])
+  end
+
+  def edit
+    #@laptop = Laptop.find(params[:laptop_id])
     @bank = Bank.find(params[:id])
-    
+  end 
+
+  def update
+    #@laptop = Laptop.find(params[:laptop_id])
+    @bank = Bank.find(params[:id])
+    if @bank.update(bank_params)
+      redirect_to laptops_path
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
+    # @laptop = Laptop.find(params[:laptop_id])
+    @bank = Bank.find(params[:id])
+    @bank.destroy
+    @laptop=Laptop.all
+    redirect_to laptops_path(@laptop)
   end
 
   private

@@ -1,5 +1,5 @@
-<h1>Insert Bank Details</h1>
- <%= form_for @bank ,url:{action: 'create'},laptop_id: @laptop.id do |s| %>
+<h1>Edit Bank Details</h1>
+ <%= form_for @bank ,url: laptop_bank_path do |s| %>
  <% if @bank.errors.any? %>
   <div id="error_explanation">
     <h2><%= pluralize(@bank.errors.count, "error") %> prohibited
@@ -27,7 +27,6 @@
  <%= s.label :Rs%><br>
  <%= s.text_field :rs%>
  </p>
- <%= s.submit :Submit %> 
- <%= link_to 'Back' ,laptops_path%>
-
+ <%= s.submit :Update %> 
+ 
  <% end %>
