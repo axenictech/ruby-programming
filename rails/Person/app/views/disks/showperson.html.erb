@@ -1,6 +1,6 @@
 <h1>Persons List</h1>
 <table><tr>
-<td>Name</td> <td> Address</td><td>Age</td><td> Email</td><td>Phone</td><td>Blood Group</td><td> Country </td><td> Nationality</td><td>Edit</td><td>Bank Account</td></tr>
+<td>Name</td> <td> Address</td><td>Age</td><td> Email</td><td>Phone</td><td>Blood Group</td><td> Country </td><td> Nationality</td><td>Edit</td><td>Bank Account</td><td>Account Details</td></tr>
 <%@person.each do |f|%>
 <tr>
 <td>
@@ -14,6 +14,7 @@
 <td><%=f.nationality%> </td>
 <td><%=link_to 'Edit', edit_disks_path(f) %></td>
 <td><%=link_to 'Bank Account', addaccount_path(f.id) %></td>
+<td><%=link_to 'Bank Details', showaccount_path(f.id) %></td>
 
 </tr>
 <%end%>	
