@@ -1,0 +1,27 @@
+<table border="1">
+	<tr>
+		<th>Name</th>
+		<th>Age</th>
+		<th>Address</th>
+		<th>Blood Group</th>
+		<th>Phone Number</th>
+		<th>Email</th>
+		<th>Nationality</th>
+		<th>Country</th>
+	</tr>
+    <% @people.each do |p| %>
+     <tr>
+     	<td><%= p.firstname%><%= p.lastname%></td>
+     	<td><%= p.age %></td>
+     	<td><%= p.address %></td>
+     	<td><%= p.bloodGroup%></td>
+     	<td><%= p.phoneNo %></td>
+     	<td><%= p.email %></td>
+     	<td><%= p.nationality %></td>
+     	<td><%= p.country %></td>
+     	<td><%= link_to 'Edit',edit_people_path(p)%></td>
+     	<td><%= link_to 'Delete',people_path(p),method: :delete,data: { confirm:'Are You Sure' } %></td>
+     	<td><%= link_to 'Bank Details'%></td>
+     </tr>
+    <%end%>
+		</table>
