@@ -1,0 +1,21 @@
+<%= form_for @student,url:{action:'student_update',id:@student.id}  do |f|%>
+  
+   <table>
+   	<tr>
+   		<td><%= f.label :'Roll No' %></td>
+   		<td><%= f.text_field :rollno %></td>
+   	</tr>
+
+   	<tr>
+   		<td><%= f.label :'Name' %></td>
+   		<td><%= f.text_field :name %></td>
+   	</tr>
+
+   	<tr>
+   		<td><%= f.submit :'Save'%>
+   		<td></td>
+   </table>
+
+
+
+<%end%>
