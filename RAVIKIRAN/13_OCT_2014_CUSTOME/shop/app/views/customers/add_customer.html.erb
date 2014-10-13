@@ -1,0 +1,21 @@
+<h1> ADD CUSTOMER DETAILS </h1>
+
+<%= form_for @c, url:{action: 'cust_save'},method: :post do |f| %>
+<table border=1>
+	<tr>
+		<td> <%= f.label :'customer name :' %> </td>
+		<td> <%= f.text_field :c_name %> </td>
+	</tr>
+
+	<tr>
+		<td> <%= f.label :'address :' %> </td>
+		<td> <%= f.text_field :address %> </td>
+	</tr>
+
+	<tr>
+		<td> <%= f.label :'mobile :' %> </td>
+		<td> <%= f.text_field :mobile %> </td>
+	</tr>
+</table> <br>
+<%= f.submit :"INSERT" %>
+<%end%>
