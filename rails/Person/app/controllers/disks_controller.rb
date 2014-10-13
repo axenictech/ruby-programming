@@ -19,8 +19,13 @@ class DisksController < ApplicationController
 	@person=Disk.all
  end
 
+ def save
+  redirect_to disks_showperson_path
+  end
+
 def edit
 @disk=Disk.find(params[:format])
+#format.js { render :content_type => 'text/javascript' }
 end
 def update
 @person=Disk.find(params[:id])
