@@ -1,0 +1,38 @@
+<%= form_for @student,url:{action:'student_save'}  do |f|%>
+  
+   <table>
+   	<tr>
+   		<td><%= f.label :'Roll No' %></td>
+   		<td><%= f.text_field :rollno %></td>
+   	</tr>
+
+   	<tr>
+   		<td><%= f.label :'Name' %></td>
+   		<td><%= f.text_field :name %></td>
+   	</tr>
+
+   	<tr>
+   		<td><%= f.submit :'Save'%>
+   		<td></td>
+   </table>
+
+
+
+<%end%>
+
+ <table>
+	<tr>
+		<th>Roll No:</th>
+		<th>Name:</th>
+	</tr>
+	
+	<% @students.each do |s| %>
+		<tr>
+			<td><%= s.rollno %></td>
+			<td><%= s.name %></td>
+			<td><%= link_to 'Edit',students_student_edit_path(s) %></td>
+			<td><%= link_to 'Delete',students_student_delete_path(s),method: :delete,data: {confirm: 'Are you sure'}%></td>
+		</tr>
+	<% end %>
+	
+</table> 
