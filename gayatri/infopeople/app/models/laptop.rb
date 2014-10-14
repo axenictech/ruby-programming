@@ -1,6 +1,6 @@
 class Laptop < ActiveRecord::Base
 
-	has_many :bank, dependent: :destroy
+	has_many :banks, dependent: :destroy
  	validates :fname,presence:true,length:{minimum: 1,maximum: 20},format:{with: /\A[a-z A-Z]+\Z/,message:"Please enter only letter allows"}
  	validates :lname ,presence:true,length: {minimum: 1, maximum: 20},format: {with: /\A[a-z A-Z]+\Z/,message:"Please enter only letter allows"}
 	validates :address,presence:true,length: {minimum: 1, maximum: 20},format: {with: /\A[a-z A-Z]+\Z/,message:"Please enter only letter allows"}

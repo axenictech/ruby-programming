@@ -1,0 +1,79 @@
+<h1>Edit New Person</h1><br>
+<%=form_for @disk, url: {action: 'update',id: @disk.id},method: :patch do |f|%>
+<table>
+	<tr>
+		<td>
+			<%=f.label :firstName ,class: "form-control"%>
+		</td>
+		<td>
+			<%=f.text_field :firstName ,class: "form-control"%>
+		</td>
+		</tr>
+		<tr>
+		<td>
+			<%=f.label :lastName ,class: "form-control"%>
+		</td>
+		<td>
+			<%=f.text_field :lastName ,class: "form-control"%>
+		</td>
+		</tr>
+		<tr>
+		<td>
+			<%=f.label :address ,class: "form-control"%>
+		</td>
+		<td>	
+			<%=f.text_field :address ,class: "form-control"%>
+		</td>
+		</tr>
+		<tr>
+		<td>		
+			<%=f.label :age ,class: "form-control"%>
+		</td>
+		<td>	
+			<%=f.text_field :age ,class: "form-control"%>
+		</td>
+		</tr>
+		<tr>
+		<td>
+			<%=f.label :email ,class: "form-control"%>
+		</td>
+		<td>
+			<%=f.text_field :email ,class: "form-control"%>
+		</td>
+		</tr>
+		<tr>
+		<td>
+			<%=f.label :phone ,class: "form-control"%>
+		</td>
+		<td>
+			<%=f.text_field :phone ,class: "form-control"%>
+		</td>
+		</tr>
+		<tr>
+		<td>
+			<%=f.label :bloodgroup ,class: "form-control"%>
+		</td>
+		<td>
+			<%=f.text_field :bloodgroup ,class: "form-control"%>
+		</td>
+		</tr>
+		<tr>
+		<td>
+			<%=f.label :country ,class: "form-control"%>
+		</td>
+		<td>
+			<%=f.text_field :country ,class: "form-control"%><br>
+		</td>
+		</tr>
+		<tr>
+		<td>
+			<%=f.label :nationality ,class: "form-control"%>
+		</td>
+		<td>
+			<%=f.text_field :nationality ,class: "form-control"%>
+		</td>
+		</tr>
+		</table>
+<%=f.submit "Create" ,class: "btn btn-primary"%>
+<%=link_to 'Back', disks_showperson_path %>
+<%end%>
