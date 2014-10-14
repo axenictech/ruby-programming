@@ -1,0 +1,15 @@
+<h1> ADD STUDENT DETAILS </h1>
+<%= form_for @s, url:{action: 'student_save'} do |f| %>
+<table border=1>
+	<tr>
+		<td> <%= f.label :'student name :' %> </td>
+		<td> <%= f.text_field :s_name %> </td>
+	</tr>
+
+	<tr>
+		<td> <%= f.label :'marks :' %> </td>
+		<td> <%= f.text_field :marks %> </td>
+	</tr>
+</table> <br>
+<%= f.submit :"INSERT" %>
+<%end%>
