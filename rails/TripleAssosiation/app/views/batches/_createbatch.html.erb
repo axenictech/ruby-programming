@@ -1,0 +1,22 @@
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Add New Batch</h4>
+            </div>
+            <div class="modal-body">
+                <%=form_for :batch ,url: savebatch_path(@batch), method: :post,remote:true do |f|%>
+                <%=f.label :name%>
+                <%=f.text_field :name%><br><br>
+                <%=f.label :code %>
+                <%=f.text_field :code%><br><br>
+                <%=f.submit "Save Batch" ,:class => 'btn btn-primary'%>
+                <%end%>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-default" 
+               data-dismiss="modal">Close
+            </button>
+            </div>
+    </div>
