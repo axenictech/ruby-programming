@@ -1,6 +1,8 @@
-<%= link_to 'Add new Person', laptops_welcome_path%>
 
+ 
+<%= link_to 'Add new Person', laptops_welcome_path,remote:true%>
 <br><br>
+<div id="personlist" >
 <% if @laptops.empty? %>
 <h3>No Records Found</h3>
 <% else %>
@@ -9,7 +11,7 @@
 <tr>
 	
 	<th>First Name</th>
-	<th>Last Name</th>
+	<th>Last Name</th> 
 	<th>Address</th>
 	
 	<th>Email</th>
@@ -31,15 +33,23 @@
 	<td><%= l.email %></td>
 	<td><%= l.phone %></td>
 	<td><%= l.country %></td>
-	<td><%= link_to 'Edit', edit_laptop_path(l)%></td>
+	<td><%= link_to 'Edit', edit_laptop_path(l),remote: true%></td>
 	<td><%= link_to 'Delete',laptop_path(l),method: :delete, data: { confirm: 'Are you sure?' } %></td>
-	<td><%= link_to 'AddBank',laptops_index_path(l),:onclick =>'$("#popup").dialog();'%></td>
-	<td><%= link_to 'Select' , new_laptop_bank_path(l)  %></td>
+	<td><%= link_to 'AddBank',new_laptop_bank_path(l),remote: true%></td>
+	<td><%= link_to 'AllDetails' , new_laptop_bank_path(l)  %></td>
 </tr>
 <% end %>
 
 </table>
-<div id="popup" style="display:none">
-	
-</div>
+
 <% end %>
+</div>
+
+<br><br>
+<div id="showlist">
+
+</div>
+
+
+<div id="myModal" class="modal fade">
+</div>

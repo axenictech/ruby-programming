@@ -1,0 +1,33 @@
+<h1>Welcome to Batch Management System</h1>
+<%= link_to 'Insert New Batch', batches_path , remote:true %>
+<h3> List Of All Batches </h3>
+<br><br>
+<div id="batchlist" >
+<% if @batches.empty? %>
+<h3>No Records Found</h3>
+<% else %>
+<table border="2">
+
+<tr>
+	
+	<th>Batch Name</th>
+	<th>Batch Year</th>  
+	
+</tr>
+<% @batches.each do |b| %>
+<tr>
+	<td><%= b.batchname %></td>
+	<td><%= b.batchyear%></td>
+	
+</tr>
+<% end %>
+
+</table>
+
+<% end %>
+</div>
+
+<br><br>
+
+<div id="myModal" class="modal fade">
+</div>
