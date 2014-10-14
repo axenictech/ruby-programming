@@ -1,5 +1,32 @@
+<h1>Selected Person </h1>
+<table border="2">
+<tr>
+   <th>Name</th>
+    <th>Address</th>
+     <th>Age</th>
+      <th>Email</th>
+       <th>Contact</th>
+        <th>Nationality</th>
+         <th>BloodGroup</th>
+          <th>Country</th>
+
+</tr>
+<tr>
+  <td><%= @laptop.fname+" "+@laptop.lname %></td>
+  <td><%= @laptop.address %></td>
+  <td><%= @laptop.age %></td>
+  <td><%= @laptop.email %></td>
+  <td><%= @laptop.phone %></td>
+  <td><%= @laptop.nationality %></td>
+  <td><%= @laptop.bloodgroup %></td>
+  <td><%= @laptop.country %></td>
+ 
+</tr>
+</table>
+
+
 <h1>Insert Bank Details</h1>
- <%= form_for @bank ,url:{action: 'create'},laptop_id: @laptop.id do |s| %>
+ <%= form_for @bank ,url:{action: 'create'},laptop_id: @laptop.id ,remote:true do |s| %>
  <% if @bank.errors.any? %>
   <div id="error_explanation">
     <h2><%= pluralize(@bank.errors.count, "error") %> prohibited
@@ -28,6 +55,40 @@
  <%= s.text_field :rs%>
  </p>
  <%= s.submit :Submit %> 
- <%= link_to 'Back' ,laptops_path%>
+ <%= link_to 'Back', laptops_path %>
 
  <% end %>
+ <br><br>
+
+ <h1>Show List of Bank Added</h1>
+ <div id="showlist">
+
+<table border="2">
+
+<tr>
+  
+  <th>Bank Name</th>
+  <th>Address</th>
+  <th>Account Nudmber</th>
+  <th>Rs.</th>
+  <th></th>
+  <th></th>
+ 
+</tr>
+<%@banks.each do |b| %>
+
+<tr>
+  <td><%= b.bname%></td>
+  <td><%= b.baddress%></td>
+  <td><%= b.account_no %></td>
+  <td><%= b.rs %></td>
+  <td><%=link_to "edit",edit_laptop_bank_path(@banks, b)%></td>
+  
+  <td><%= link_to "delete",laptop_bank_path(@banks, b),laptop_id: @laptop.id, method: :delete, data: { confirm: 'Are you sure?' }  %></td>
+
+</tr>
+<% end %>
+</table>
+
+
+ </div>
