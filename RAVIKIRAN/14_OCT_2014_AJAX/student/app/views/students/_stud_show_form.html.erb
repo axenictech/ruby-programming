@@ -1,0 +1,17 @@
+<h6> MARKS DETAILS </h6>
+<table border=2>
+	<tr>
+		<th> STUDENT NAME </th>
+		<th> MARKS </th>
+	</tr>
+	<% @ss.each do |f| %>
+	<tr>
+		<td><%= f.s_name %></td>
+		<td><%= f.marks %></td>
+		<td><%= link_to 'UPDATE',students_stud_update_form_path(f),remote:true%></td>
+        <td><%= link_to 'DELETE', students_student_delete_path(f),
+                    method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        
+	</tr>
+	<%end%>
+</table>
