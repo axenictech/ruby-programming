@@ -1,0 +1,38 @@
+<h1>Add Batch</h1>
+<%= link_to 'Insert New Batch',new_batch_path , remote:true %>
+<h3> List Of All Batches </h3>
+<br><br>
+<div id="batchlist" >
+<% if @batches.empty? %>
+<h3>No Records Found</h3>
+<% else %>
+<table border="2" class="table table-striped">
+
+<tr>
+	
+	<th>Batch Name</th>
+	<th>Batch Year</th>  
+	<th>Edit Batch</th>
+	<th>Delete Batch</th>
+	
+</tr>
+<% @batches.each do |b| %>
+<tr>
+	<td><%= b.batchname %></td>
+	<td><%= b.batchyear%></td>
+	<td><%= link_to 'Edit',edit_batch_path(b),remote:true%></td>
+	<td><%= link_to 'Delete',batch_path(b),method: :delete, data: { confirm: 'Are you sure?' }%></td>
+	
+</tr>
+<% end %>
+
+</table>
+
+<% end %>
+</div>
+<%=link_to 'Back', batches_path %>
+<br><br>
+
+<div id="myModal" class="modal fade">
+
+</div>

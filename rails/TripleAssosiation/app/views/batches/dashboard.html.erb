@@ -1,0 +1,29 @@
+  <%=form_for :batchselect ,url: getsubjects_path(@batch), method: :post,remote:true do |f|%>
+                
+                <div>
+                <h3>Add Subjects to batch</h3>
+              Select Batch
+              <%= f.select :batch_id, Batch.all.collect {|p| [p.name, p.id ] }, { include_blank: true }, :class=>"form-control",:style => 'width: 300px',:onchange=>"
+              var data={batch_id: $('#batchselect_batch_id').val()};
+              $.post('getsubjects',data,function(response){});
+              "%>
+              
+              </div>
+              <div id="selected_subjects"></div>
+
+
+                <div>
+                <h4>Add Elected Subjects to batch</h4>
+              Select Batch
+              <%= f.select :batch_select_id, Batch.all.collect {|p| [p.name, p.id ] }, { include_blank: true }, :class=>"form-control",:style => 'width: 300px',:onchange=>"
+              var data={batch_id: $('#batchselect_batch_select_id').val()};
+              $.post('getelectedsubjects',data,function(response){});
+              "%>
+              <%end%>
+              </div>
+              <div id="selected_elected_subjects"></div>
+
+
+
+<div id="recievedfile">
+</div>

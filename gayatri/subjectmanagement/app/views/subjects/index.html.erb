@@ -1,2 +1,23 @@
-<h1>Subjects#index</h1>
-<p>Find me in app/views/subjects/index.html.erb</p>
+ <h3>Select Batch For Subject</h3>
+<p>
+    <%= collection_select(:batch, :batch_id, Batch.all, :id, :batchname) %>
+</p>
+            
+<%= link_to 'Insert New Subject',new_subject_path , remote:true %>
+<br>
+<div id="showsubjectlist">
+</div>
+
+
+<h3>Select Batch For Elective Group</h3>
+<p>
+    <%= collection_select(:batch, :batch_id, Batch.all, :id, :batchname) %>
+</p>
+
+<%= link_to 'Insert New Elective Group',new_electivgroup_path , remote:true %>
+<div id="showelectivegrouplist">
+</div>
+
+<div id="myModal" class="modal fade">
+
+</div>

@@ -2,10 +2,10 @@
   <div class="modal-content">
      <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">Insert New Batch</h4>
+          <h4 class="modal-title">Edit Selected Batch</h4>
      </div>
        <div class="modal-body">
-            <%= form_for @batch, url:batches_path,remote:true do |s| %>
+            <%= form_for @batch,remote:true do |s| %>
  			      <% if @batch.errors.any? %>
  			   <div id="error_explanation">
   		    	<h2><%= pluralize(@batch.errors.count, "error") %> prohibited
@@ -25,7 +25,7 @@
  				       <%= s.label :Year %><br>
  				       <%= s.text_field :batchyear %>
 				       </p>
-				       <%= s.submit :Submit ,class: "btn btn-primary"%>
+				       <%= s.submit :Update ,class: "btn btn-primary"%>
 
  			          <% end %>
 
@@ -39,4 +39,3 @@
    </div>
 
 </div>
-

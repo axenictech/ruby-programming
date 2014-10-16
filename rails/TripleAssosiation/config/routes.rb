@@ -11,7 +11,11 @@ Rails.application.routes.draw do
   post "batches/saveelectivesubject", to: "batches#saveelectivesubject", as: "saveelectivesubject"
 
   get "batches/createelectivegroup", to: "batches#createelectivegroup", as: "createelectivegroup"
+  get "batches/dashboard", to: "batches#dashboard", as: "dashboard"
   post "batches/saveelectivegroup", to: "batches#saveelectivegroup", as: "saveelectivegroup"
+  post "batches/getsubjects", to: "batches#getsubjects", as: "getsubjects"
+  post "batches/getelectedsubjects", to: "batches#getelectedsubjects", as: "getelectedsubjects"
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
