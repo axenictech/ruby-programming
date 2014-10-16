@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ns_code: 1
+  ns_subject: MyString
+  batch_id: 
+
+two:
+  ns_code: 1
+  ns_subject: MyString
+  batch_id: 

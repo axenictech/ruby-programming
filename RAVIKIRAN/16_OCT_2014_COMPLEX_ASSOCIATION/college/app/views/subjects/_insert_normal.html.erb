@@ -1,0 +1,28 @@
+<div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">ADD NORMAL SUBJECT DETAILS</h4>
+            </div>
+            <div class="modal-body">
+<%= form_for :a do |f| %>
+<table border=1>
+	<tr>
+		<td> <%= f.label :'subject code :' %> </td>
+		<td> <%= f.text_field :ns_code %> </td>
+	</tr>
+
+	<tr>
+		<td> <%= f.label :'subject name :' %> </td>
+		<td> <%= f.text_field :ns_subject  %> </td>
+	</tr>
+</table> <br>
+<%= f.submit :"INSERT" %>
+<%end%>
+</div>
+<div class="modal-footer">
+            <button type="button" class="btn btn-default" 
+               data-dismiss="modal">Close
+            </button>
+            </div>
+</div>
+</div>

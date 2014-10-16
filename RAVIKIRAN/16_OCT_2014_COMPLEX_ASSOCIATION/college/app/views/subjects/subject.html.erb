@@ -1,0 +1,47 @@
+<%= form_for :a do |f| %>
+<table border=1>
+	<tr>
+		<td> <%= f.label :'batch name :' %> </td>
+		<td> <%= f.select :batch_id, Batch.all.collect {|p| [p.b_name, p.id ] }, { include_blank: true }%> </td>
+	</tr>
+</table> <br>
+<%end%>
+<br>
+
+<%= link_to 'Add Normal Subject',subjects_insert_normal_path,remote:true%><br>
+
+<h6> NORMAL SUBJECT DETAILS </h6>
+<table border=2>
+	<tr>
+		<th> SUBJECT CODE </th>
+		<th> SUBJECT NAME </th>
+	</tr>
+	
+	<tr>
+		<td><%=  %></td>
+		<td><%=  %></td>
+		<td><%= link_to 'UPDATE'%></td>
+        <td><%= link_to 'DELETE'%></td>
+    </tr>
+</table><br><br>
+
+<%= link_to 'Add Elective Subject',subjects_insert_elective_path,remote:true%><br><br>
+
+<h6> ELECTIVE SUBJECT DETAILS </h6>
+<table border=2>
+	<tr>
+		<th> SUBJECT CODE </th>
+		<th> SUBJECT NAME </th>
+	</tr>
+	
+	<tr>
+		<td><%=  %></td>
+		<td><%=  %></td>
+		<td><%= link_to 'UPDATE'%></td>
+        <td><%= link_to 'DELETE'%></td>
+    </tr>
+</table>
+
+<center>
+<div id="myModal" class="modal fade"></div>
+</center>
