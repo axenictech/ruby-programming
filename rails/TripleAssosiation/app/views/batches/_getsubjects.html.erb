@@ -1,0 +1,17 @@
+<h4>Normal Subjects</h4>
+<br>
+<%@subjects=@batch.subjects%>
+<%=link_to "Add Subjects",addnormalsubject_path(@batch.id), remote: true%>
+<table class="table table-hover" style="width: 500px;">
+<tr>
+<th>Id</th><th>Subject Name</th><th>Subject Code</th></tr>	
+<%@subjects.each do |f|%>
+<tr>
+	<td><%=f.id%></td><td><%=f.name%></td><td><%=f.code%></td>
+
+
+</tr>
+<%end%>
+</table>
+
+

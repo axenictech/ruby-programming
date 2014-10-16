@@ -8,10 +8,10 @@ class BatchesController < ApplicationController
   end
 
 	def addnormalsubject
-	@batches=Batch.all
+	 @batch=Batch.find(params["format"])
 	end
  	def savenormalsubject
- 		@batch=Batch.find(getsubjectdetails["batch_id"])
+     @batch=Batch.find(params['format'])
  		@batch.subjects.create(getsubject)
  	end
     def addelectivesubject
@@ -25,6 +25,24 @@ class BatchesController < ApplicationController
     	@batch=Batch.find(getgroupall["batch_id"])
     	@batch.electivegroups.create(getgroup)
   	end
+  	def dashboard
+
+  	end
+  	def getsubjects
+  		#code to aaccess subject for perticular batch
+  		@batch=Batch.find(params['batch_id'])
+  		p "----------------------------------------------------------------"
+  		p params['batch_id']
+  		p "----------------------------------------------------------------"
+  	end
+    def getelectedsubjects
+      #code to aaccess subject for perticular batch
+      @batch=Batch.find(params['batch_id'])
+      p "----------------------------------------------------------------"
+      p params['batch_id']
+      p "----------------------------------------------------------------"
+    end
+
 
   private
   def getbatch

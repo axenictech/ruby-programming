@@ -7,12 +7,8 @@
             </div>
 
             <div class="modal-body">
-                <%=form_for :subject ,url: savenormalsubject_path, method: :post,remote:true do |f|%>
-              Select Batch
-              <%= f.select :batch_id, Batch.all.collect {|p| [p.name, p.id ] }, { include_blank: true }, :class=>"form-control"%>
-              <div id="selectedbatch"></div>
-              <br>
-              <%=f.label :name %>
+                <%=form_for :subject ,url: saveelectivesubject_path(@batch), method: :post,remote:true do |f|%>
+                <%=f.label :name %>
               <%=f.text_field :name,:class=>"form-control"%>
                <%=f.label :code %>
                 <%=f.text_field :code ,:class=>"form-control"%>
