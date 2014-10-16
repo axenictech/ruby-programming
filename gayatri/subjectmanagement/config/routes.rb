@@ -7,9 +7,15 @@ Rails.application.routes.draw do
 
   root 'batches#index'
 
+  resources :subjects
+
+  resources :electivgroups
+
   resources :batches do
     resources :subjects
-    resources :electivgroups
+    resources :electivgroups do 
+      resources :subjects
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
