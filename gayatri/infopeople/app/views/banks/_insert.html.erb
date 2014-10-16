@@ -1,33 +1,42 @@
-<h1>Insert Bank Details</h1>
- <%= form_for @bank ,url:{action: 'create'},laptop_id: @laptop.id ,remote:true do |s| %>
- <% if @bank.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@bank.errors.count, "error") %> prohibited
-      this person from being saved:</h2>
-    <ul>
-    <% @bank.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
-  <% end %>
- <p>
- <%= s.label :BankName %><br>
- <%= s.text_field :bname %>
- </p>
- <p>
- <%= s.label :Address %><br>
- <%= s.text_field :baddress%>
- </p>
- <p>
- <%= s.label :AccountNo%><br>
- <%= s.text_field :account_no%>
- </p>
- <p>
- <%= s.label :Rs%><br>
- <%= s.text_field :rs%>
- </p>
- <%= s.submit :Submit %> 
- <%= link_to 'Back', laptops_path %>
+ <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Bank Details</h4>
+            </div>
+            <div class="modal-body">
+              <%= form_for @bank ,url:{action: 'create'},laptop_id: @laptop.id ,remote:true do |s| %>
+                 <% if @bank.errors.any? %>
+                  <div id="error_explanation">
+                    <h2><%= pluralize(@bank.errors.count, "error") %> prohibited
+                      this person from being saved:</h2>
+                    <ul>
+                    <% @bank.errors.full_messages.each do |msg| %>
+                      <li><%= msg %></li>
+                    <% end %>
+                    </ul>
+                  </div>
+                  <% end %>
+                 <p>
+                 <%= s.label :BankName %><br>
+                 <%= s.text_field :bname %>
+                 </p>
+                 <p>
+                 <%= s.label :Address %><br>
+                 <%= s.text_field :baddress%>
+                 </p>
+                 <p>
+                 <%= s.label :AccountNo%><br>
+                 <%= s.text_field :account_no%>
+                 </p>
+                 <p>
+                 <%= s.label :Rs%><br>
+                 <%= s.text_field :rs%>
+                 </p>
+                 <%= s.submit :Submit ,class: "btn btn-primary"%> 
+                 <%= link_to 'Back', laptops_path %>
 
- <% end %>
+                 <% end %>
+
+            </div>
+           </div>
+    </div>

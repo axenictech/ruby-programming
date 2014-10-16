@@ -1,0 +1,34 @@
+<div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Insert New Batch</h4>
+            </div>
+            <div class="modal-body">
+            <%= form_for @batch, url:  new_batch_path,remote:true do |s| %>
+ 			<% if @batch.errors.any? %>
+ 			 <div id="error_explanation">
+  			  <h2><%= pluralize(@batch.errors.count, "error") %> prohibited
+     				  this person from being saved:</h2>
+    		<ul>
+    		<% @batch.errors.full_messages.each do |msg| %>
+      		<li><%= msg %></li>
+   			 <% end %>
+  		    </ul>
+ 			 </div>
+ 			 <% end %>
+ 				<p>
+ 				<%= s.label :BatchName %><br>
+ 				<%= s.text_field :batchname %>
+				 </p>
+				 <p>
+ 				<%= s.label :Year %><br>
+ 				<%= s.text_field :batchyear %>
+				 </p>
+				 <%= s.submit :Submit ,class: "btn btn-primary"%>
+
+ 			<% end %>
+        </div>
+    </div>
+
+ </div>
+
