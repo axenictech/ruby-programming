@@ -1,0 +1,41 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+     <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Edit Selected Batch</h4>
+     </div>
+       <div class="modal-body">
+            <%= form_for @batch,remote:true do |s| %>
+ 			      <% if @batch.errors.any? %>
+ 			   <div id="error_explanation">
+  		    	<h2><%= pluralize(@batch.errors.count, "error") %> prohibited
+     				  this person from being saved:</h2>
+    		      <ul>
+    		      <% @batch.errors.full_messages.each do |msg| %>
+      		    <li><%= msg %></li>
+   			       <% end %>
+  		          </ul>
+ 			    </div>
+ 			       <% end %>
+ 			    	<p>
+ 				     <%= s.label :BatchName %><br>
+ 				     <%= s.text_field :batchname %>
+				       </p>
+				       <p>
+ 				       <%= s.label :Year %><br>
+ 				       <%= s.text_field :batchyear %>
+				       </p>
+				       <%= s.submit :Update ,class: "btn btn-primary"%>
+
+ 			          <% end %>
+
+                    </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-primary" 
+                 data-dismiss="modal">Close
+               </button>
+           </div>
+
+   </div>
+
+</div>

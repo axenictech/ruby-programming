@@ -1,20 +1,28 @@
 <h1>Persons List</h1>
 <table><tr>
-<td>Name</td> <td> Address</td><td>Age</td><td> Email</td><td>Phone</td><td>Blood Group</td><td> Country </td><td> Nationality</td><td>Edit</td><td>Bank Account</td></tr>
+<td>Name</td> <td>Edit</td><td>Bank Account</td><td>Account Details</td></tr>
 <%@person.each do |f|%>
 <tr>
 <td>
 <%=f.firstName%> &nbsp<%=f.lastName%></td>
-<td><%=f.address%></td>
-<td><%=f.age%> </td>
-<td><%=f.email%> </td>
-<td><%=f.phone%> </td>
-<td><%=f.bloodgroup%> </td>
-<td><%=f.country%> </td>
-<td><%=f.nationality%> </td>
-<td><%=link_to 'Edit', edit_disks_path(f) %></td>
-<td><%=link_to 'Bank Account', addaccount_path(f.id) %></td>
+<td><%=link_to 'Edit', edit_disks_path(f),remote: true ,:onclick => '$("#personinfo").dialog({modal: true,title: "Update User"})'%></td>
+<td><%=link_to 'Bank Account', addaccount_path(f.id),remote: true ,:onclick => '$("#personinfo").dialog({modal: true,title: "Update User"})'%></td>
+<td><%=link_to 'Bank Details', showaccount_path(f.id) ,remote: true ,:onclick => '$("#personinfo").dialog({modal: true,title: "Update User"})'%></td>
 
 </tr>
 <%end%>	
 </table>
+<div id="personinfo" style="display:none">
+	hello
+</div>
+
+<%=form_for :addmore, url: save_path do |f|%>
+<div id="adddynamically"><br>
+<%=f.text_field :data %>
+</div>
+<%= button_tag( type: 'button') do%>
+Add More
+<%end%>
+<br>
+<%=f.submit "Send to Server"%><br>
+<%end%>

@@ -1,0 +1,23 @@
+<div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">UPDATE BATCH DETAILS</h4>
+            </div>
+            <div class="modal-body">
+<%= form_for @b, url:{action: 'batch_update',id:@b.id} do |f| %>
+<table border=1>
+	<tr>
+		<td> <%= f.label :'batch name :' %> </td>
+		<td> <%= f.text_field :b_name %> </td>
+	</tr>
+
+	<tr>
+		<td> <%= f.label :'year :' %> </td>
+		<td> <%= f.text_field :year %> </td>
+	</tr>
+</table> <br>
+<%= f.submit :"UPDATE" %>
+<%end%>
+</div>
+</div>
+</div>

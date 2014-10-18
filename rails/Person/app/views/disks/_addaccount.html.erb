@@ -1,0 +1,68 @@
+<h4>Selected Person Details</h4>
+
+<table><tr>
+<td>Name</td> <td> Address</td><td>Age</td><td> Email</td><td>Phone</td><td>Blood Group</td><td> Country </td><td> Nationality</td><td>Edit</td><td></td><td></td></tr>
+<%f=@disk%>
+<tr>
+<td>
+<%=f.firstName%> &nbsp<%=f.lastName%></td>
+<td><%=f.address%></td>
+<td><%=f.age%> </td>
+<td><%=f.email%> </td>
+<td><%=f.phone%> </td>
+<td><%=f.bloodgroup%> </td>
+<td><%=f.country%> </td>
+<td><%=f.nationality%> </td>
+<td><%=link_to 'Edit', edit_disks_path(f) %></td>
+<td><%link_to 'Bank Account', addaccount_path(f.id) %></td>
+<td><%link_to 'Bank Details', showaccount_path(f.id) %></td>
+
+</tr>
+</table>
+
+
+<h4>Add Account Details</h4>
+<%=form_for @account, remote: true , url: {action: 'saveaccount',disk_id: @disk.id}, method: :post do |f|%>
+	<table>
+	<tr>
+		<td>
+			<%=f.label :bankname%>
+		</td>
+		<td>
+			<%=f.text_field :bankname%>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<%=f.label :accountno%>
+		</td>
+		<td>
+			<%=f.text_field :accountno%>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<%=f.label :accounttype%>
+		</td>
+		<td>
+			<%=f.text_field :accounttype%>
+		</td>
+	</tr>
+	</table>
+<%=f.submit 'Save Account Details'%>
+<%=link_to 'Back', disks_showperson_path %>
+<%end%>
+<div id="account_details">
+<h1>Account Details</h1>
+<table><tr>
+<td>Bank Name</td> <td> Account No</td><td>Account Type</td></tr>
+<%@accounts.each do |f|%>
+<tr>
+<td><%=f.bankname%></td>
+<td><%=f.accountno%></td>
+<td><%=f.accounttype%> </td>
+</tr>
+<%end%>	
+</table>
+<%=link_to 'Back', disks_showperson_path %>
+</div>

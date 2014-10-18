@@ -1,13 +1,15 @@
 Rails.application.routes.draw do
-  get 'banks/index'
-
+ 
   get 'laptops/index'
   get 'laptops/welcome'
   post 'laptops/personinsert'
+  get 'banks/index'
   root 'laptops#index'
+  
   resources :laptops do
   resources :banks
   end
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

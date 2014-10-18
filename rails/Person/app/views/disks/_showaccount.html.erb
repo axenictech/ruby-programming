@@ -1,0 +1,11 @@
+<h1>Account Details</h1>
+<table><tr>
+<td>Bank Name</td> <td> Account No</td><td>Account Type</td></tr>
+<%@accounts.each do |f|%>
+<tr>
+<td><%=f.bankname%></td>
+<td><%=f.accountno%></td>
+<td><%=f.accounttype%> </td>
+<%end%>	
+</table>
+<%=link_to 'Back', disks_showperson_path %>

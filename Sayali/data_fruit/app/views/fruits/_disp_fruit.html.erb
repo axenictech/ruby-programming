@@ -1,0 +1,15 @@
+<table>
+	<tr>
+	<th>Fruit Name:</th>
+	<th>Fruit Color:</th>
+	</tr>
+   
+   <% @fruits.each do |s|%>
+    <tr>
+    	<td><%= s.name %></td>
+    	<td><%= s.color %></td>
+    	<td><%= link_to 'Edit',fruits_fruit_edit_path(s),remote:true%>
+    	<td><%= link_to 'Delete',fruits_fruit_delete_path(s),remote:true,method: :delete,data:{confirm:'Are you sure?'}%></td>
+    </tr>
+    <%end%>
+   </table>

@@ -1,5 +1,5 @@
 <h1>Insert Person</h1>
- <%= form_for @laptop do |s| %>
+ <%= form_for @laptop ,remote:true do |s| %>
  <% if @laptop.errors.any? %>
   <div id="error_explanation">
     <h2><%= pluralize(@laptop.errors.count, "error") %> prohibited

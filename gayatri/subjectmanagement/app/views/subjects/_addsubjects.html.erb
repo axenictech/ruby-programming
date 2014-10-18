@@ -1,0 +1,42 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+     <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Insert Subjects to Batch</h4>
+     </div>
+       <div class="modal-body">
+         <%= form_for @subject, url:subjects_path,remote:true do |s| %>
+            <% if @subject.errors.any? %>
+         <div id="error_explanation">
+            <h2><%= pluralize(@subject.errors.count, "error") %> prohibited
+               from being saved:</h2>
+              <ul>
+              <% @subject.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+               <% end %>
+                </ul>
+          </div>
+             <% end %>
+            
+            <p>
+             <%= s.label :SubjectName%><br>
+             <%= s.text_field :subjectname %>
+               </p>
+               <p>
+               <%= s.label :SubjectCode %><br>
+               <%= s.text_field :subjectcode %>
+               </p>
+               <%= s.submit :Submit ,class: "btn btn-primary"%>
+
+                <% end %>
+       </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-primary" 
+                 data-dismiss="modal">Close
+               </button>
+           </div>
+
+   </div>
+
+</div>
+
