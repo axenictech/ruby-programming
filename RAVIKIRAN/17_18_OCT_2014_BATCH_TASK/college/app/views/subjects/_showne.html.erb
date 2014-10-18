@@ -1,0 +1,37 @@
+<%= link_to 'Add Normal Subject',subjects_insert_normal_path(@b),remote:true%><br>
+
+<h6> NORMAL SUBJECT DETAILS </h6>
+<table border=2>
+	<tr>
+		<th> SUBJECT CODE </th>
+		<th> SUBJECT NAME </th>
+	</tr>
+	<% @ns.each do |f| %>
+	<tr>
+		<td><%= f.ns_code %></td>
+		<td><%= f.ns_subject %></td>
+		<td><%= link_to 'UPDATE',subjects_update_normal_path(f),remote:true%></td>
+        <td><%= link_to 'DELETE',subjects_normal_delete_path(f),
+                    method: :delete, data: { confirm: 'Are you sure?' }%></td>
+    </tr>
+    <%end%>
+</table><br><br>
+
+<%= link_to 'Add Elective Subject',subjects_insert_elective_path(@b),remote:true%><br><br>
+
+<h6> ELECTIVE SUBJECT DETAILS </h6>
+<table border=2>
+	<tr>
+		<th> SUBJECT GROUP </th>
+		<th> SUBJECT NAME </th>
+	</tr>
+	<% @es.each do |f| %>
+	<tr>
+		<td><%=  f.es_group %></td>
+		<td><%=  f.es_subject %></td>
+		<td><%= link_to 'UPDATE',subjects_update_elective_path(f),remote:true%></td>
+        <td><%= link_to 'DELETE',subjects_elective_delete_path(f),
+                    method: :delete, data: { confirm: 'Are you sure?' }%></td>
+    </tr>
+    <%end%>
+</table>

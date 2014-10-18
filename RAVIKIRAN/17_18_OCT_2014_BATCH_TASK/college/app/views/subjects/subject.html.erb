@@ -1,0 +1,16 @@
+
+<%= form_for :batch,url:{action:'showne'},method: :get,remote:true,html:{id:"dd"} do |f| %>
+<table border=1>
+	<tr>
+		<td> <%= f.label :batchname %></td>
+		<td> <%= f.select :id,Batch.all.collect {|p| [p.b_name,p.id]},{prompt:true},{onchange: "$('#dd').submit();"}%> </td>
+	</tr> 
+	</table><br>
+<%end%>
+<br>
+
+<div id="show"></div>
+
+<center>
+<div id="myModal" class="modal fade"></div>
+</center>
