@@ -1,0 +1,37 @@
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">Registration Form</div>
+		<div class="modal-body">
+			<%= form_for @per ,url:{action: 'create'},remote:true do |f|%>
+				<table>
+					
+					<tr>
+						<td><%=f.label :'Empolyee ID'%></td>
+						<td><%=f.text_field :emp_id%></td>
+					</tr>
+					
+					<tr>
+						<td><%=f.label :'Empolyee Name'%></td>
+						<td><%=f.text_field :name%></td>
+					</tr>
+					
+					<tr>
+						<td><%=f.label :'Empolyee Address'%></td>
+						<td><%=f.text_field :address%></td>
+					</tr>
+
+					<tr>
+						<td><%=f.label :'Blood Group'%></td>
+						<td><%= f.select :blood_group, ['A+ve', 'A-ve', 'B+ve', 'B-ve'] %></td>
+					</tr>
+					
+					<tr>
+						<td><%=f.submit :'Save'%></td>
+						<td></td>
+					</tr>
+
+				</table>
+			<%end%>				
+		</div>
+	</div>
+</div>

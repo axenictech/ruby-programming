@@ -1,0 +1,48 @@
+<%= form_for @per, url:{action: 'create'}, remote:true do |f| %>
+
+  <table>
+    <tr>
+    	<td><%= f.label :'First Name' %></td>
+    	<td><%= f.text_field :first_name %></td>
+  	</tr>
+    
+    <tr>
+    	<td><%= f.label :'Last Name' %></td>
+    	<td><%= f.text_field :last_name %></td>
+  	</tr>
+
+    <tr>
+    	<td><%= f.label :'Age' %></td>
+    	<td><%= f.text_field :age %></td>
+  	</tr>
+
+  	<tr>
+    	<td><%= f.label :'Phone No.' %></td>
+    	<td><%= f.text_field :ph_no %></td>
+  	</tr>
+
+    <tr>
+    	<td colspan="2"><%= f.submit :'SAVE' %></td>
+    </tr>
+  </table>
+<% end %>
+
+<table border="1">
+	<tr>
+		<th>First Name</th>
+		<th>Last Name</th>
+		<th>Age</th>
+		<th>Phone No.</th>
+	</tr>
+
+	<%@pers.each do |f|%>
+		<tr>
+			<td><%=f.first_name%></td>
+			<td><%=f.last_name%></td>
+			<td><%=f.age%></td>
+			<td><%=f.ph_no%></td>
+			<td><%=link_to 'Edit', edit_personalinfo_path(f), remote:true%></td>
+			<td><%=link_to 'Delete', personalinfo_path(f), remote:true, method: :delete, data: {confirm: 'Are you sure?'}%></td>
+		</tr>
+	<%end%>
+</table>

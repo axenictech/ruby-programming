@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  name: MyString
+  address: MyString
+  blood_group: MyText
+
+two:
+  id: 1
+  name: MyString
+  address: MyString
+  blood_group: MyText
