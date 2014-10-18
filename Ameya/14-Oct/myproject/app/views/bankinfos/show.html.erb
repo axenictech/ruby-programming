@@ -1,0 +1,19 @@
+<table border='1'>
+	<tr>
+	<th>Bank Name</th>
+	<th>Account No.</th>
+	<th>Salary</th>
+	</tr>
+
+	<%@banks.each do |b|%>
+	<tr>
+	<td><%=b.bank_name%></td>
+	<td><%=b.account_no%></td>
+	<td><%=b.salary%></td>
+	<td><%=link_to 'Edit', edit_personalinfo_bankinfo_path(b,b)%></td>
+	<td><%=link_to 'Delete', personalinfo_bankinfo_path(b,b), method: :delete, data: {confirm: 'Are you sure?'}%></td>
+	</tr>
+	<%end%>
+</table>
+
+<%=link_to 'Back', personalinfos_path%>

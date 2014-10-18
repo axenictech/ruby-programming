@@ -1,0 +1,35 @@
+<div class="modal-dialog">
+  <div class='modal-content'>
+    <div class='modal-body'>
+      <%= form_for @per, url:{action: 'update', id:@per.id}, remote:true do |f| %>
+
+      <table>
+        <tr>
+          <td><%= f.label :'First Name' %></td>
+          <td><%= f.text_field :first_name %></td>
+        </tr>
+    
+        <tr>
+          <td><%= f.label :'Last Name' %></td>
+          <td><%= f.text_field :last_name %></td>
+        </tr>
+
+        <tr>
+          <td><%= f.label :'Age' %></td>
+          <td><%= f.text_field :age %></td>
+        </tr>
+
+        <tr>
+          <td><%= f.label :'Phone No.' %></td>
+          <td><%= f.text_field :ph_no %></td>
+        </tr>
+
+        <tr>
+          <td colspan="2"><%= f.submit :'UPDATE' %></td>
+        </tr>
+      </table>
+    <% end %>
+  
+    </div>
+  </div>
+</div>
