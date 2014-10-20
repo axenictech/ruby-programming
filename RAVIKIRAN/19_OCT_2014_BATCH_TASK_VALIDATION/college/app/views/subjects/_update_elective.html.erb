@@ -1,0 +1,33 @@
+<div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">UPDATE ELECTIVE SUBJECT DETAILS</h4>
+            </div>
+            <div class="modal-body">
+<%= form_for @e, url:{action: 'elective_update',id:@e.id} do |f| %>
+<% if @e.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@e.errors.count, "error") %> prohibited this form from being saved: </h2>
+        <ul>
+            <% @e.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+        </ul>
+  </div>
+<% end %>
+<table border=1>
+	<tr>
+		<td> <%= f.label :'Elective group :' %> </td>
+		<td> <%= f.text_field :es_group %> </td>
+	</tr>
+
+	<tr>
+		<td> <%= f.label :'subject name :' %> </td>
+		<td> <%= f.text_field :es_subject  %> </td>
+	</tr>
+</table> <br>
+<%= f.submit :"UPDATE" %>
+<%end%>
+</div>
+</div>
+</div>
