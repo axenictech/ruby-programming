@@ -1,0 +1,40 @@
+<div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">ADD BATCH DETAILS</h4>
+            </div>
+            <div class="modal-body">
+<%= form_for @b, url:{action: 'batch_save'} do |f| %>
+
+<% if @b.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@b.errors.count, "error") %> prohibited this form from being saved: </h2>
+        <ul>
+            <% @b.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+        </ul>
+  </div>
+<% end %>
+
+<table>
+	<tr>
+		<td> <%= f.label :'batchName :' %> </td>
+		<td> <%= f.text_field :b_name %> </td>
+	</tr>
+
+	<tr>
+		<td> <%= f.label :'year :' %> </td>
+		<td> <%= f.text_field :year %> </td>
+	</tr>
+</table> <br>
+<%= f.submit :"INSERT" %>
+<%end%>
+</div>
+<div class="modal-footer">
+            <button type="button" class="btn btn-default" 
+               data-dismiss="modal">Close
+            </button>
+            </div>
+</div>
+</div>

@@ -1,0 +1,23 @@
+<%= link_to 'Batch',subjects_insert_batch_path,remote:true%><br>
+<%= link_to 'Subject',subjects_subject_path%>
+
+<center>
+<div id="myModal" class="modal fade"></div>
+</center>
+
+<h6> BATCH DETAILS </h6>
+<table border=2>
+	<tr>
+		<th> BATCH NAME </th>
+		<th> YEAR </th>
+	</tr>
+	<% @bs.each do |f| %>
+	<tr>
+		<td><%= f.b_name %></td>
+		<td><%= f.year %></td>
+		<td><%= link_to 'UPDATE',subjects_update_batch_path(f),remote:true%></td>
+        <td><%= link_to 'DELETE',subjects_batch_delete_path(f),
+                    method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+	<%end%>
+</table>
