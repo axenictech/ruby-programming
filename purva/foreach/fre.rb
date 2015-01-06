@@ -1,0 +1,1 @@
+(1..10).each{|num| puts num}
