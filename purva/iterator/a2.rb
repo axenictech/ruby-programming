@@ -1,0 +1,1 @@
+["purva","mamta","sneha"].each {|i| puts "#{i}"} 
