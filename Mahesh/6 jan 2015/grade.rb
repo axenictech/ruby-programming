@@ -3,13 +3,13 @@ def gradeIf()
 	puts"::::::::::::::::::gradeIf:::::::::::::::::::::::::"
 	puts"Enter your marks : "
 	marks=gets.chomp.to_i
-	if marks <= 100 && marks > 90
+	if marks <= 100 && marks >= 91
 	puts "Your grade is : Excellent"
 
-		elsif marks <= 90 && marks  >= 80
+		elsif marks <= 90 && marks  >= 81
 		puts "Your grade is : Good"
 
-			elsif marks < 80 && marks > 50
+			elsif marks <= 80 && marks >=51
 			puts "Your grade is : Average"
 
 				elsif marks <=  50 && marks  >=40
@@ -70,23 +70,23 @@ def gradeWhile()
 	puts"Enter your marks : "
 	marks=gets.chomp.to_i
 	
-		while(marks> 0&& marks <=40)
+		while(marks >= 0 && marks <=40)
 			puts "Fail"
 			break;
 		end
-		while(marks> 41&& marks <=50)
+		while(marks >= 41 && marks <=50)
 			puts "Need Improvement"
 			break;
 		end
-		while(marks> 51&& marks <=80)
+		while(marks >= 51 && marks <=80)
 			puts "Average"
 			break;
 		end
-		while(marks>81&& marks <=90)
+		while(marks >= 81 && marks <=90)
 			puts "Good"
 			break;
 		end
-		while(marks> 91&& marks <=100)
+		while(marks >=91 && marks <=100)
 			puts "Excellent"
 			break;
 		end
@@ -108,7 +108,7 @@ def gradeLoop()
 		
 		loop do
   				
-  			 if (marks > 0 && marks<=40)
+  			 if (marks >= 0 && marks <= 40)
   			 	puts "Fail" 
   			 	break
   			 end
@@ -116,7 +116,7 @@ def gradeLoop()
 		end
 		loop do
   				
-  			 if (marks > 41 && marks <= 50)
+  			 if (marks >= 41 && marks <= 50)
   			 	puts "Need Improvement"
   			 	break
   			 end
@@ -124,7 +124,7 @@ def gradeLoop()
 		end
 		loop do
   				
-  			 if (marks > 51 && marks <= 80)
+  			 if (marks >= 51 && marks <= 80)
   			 	puts "Average" 
   			 	break
   			 end
@@ -132,7 +132,7 @@ def gradeLoop()
 		end
 		loop do
   				
-  			 if (marks > 81 && marks <= 90)
+  			 if (marks >= 81 && marks <= 90)
   			 	puts "Good"
   			 	break
   			 end
@@ -140,7 +140,7 @@ def gradeLoop()
 		end
 		loop do
   				
-  			 if (marks > 91 && marks <= 100)
+  			 if (marks >= 91 && marks <= 100)
   			 	puts "Excellent"
   			 	break
   			 end
