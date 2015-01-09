@@ -6,6 +6,8 @@ class String
 		 i
 	end
 end
+puts"\n\n:::::::::::::::::::::::::::::::::::::::You are in Customized method Program:::::::::::::::::::::::::::::::::::::::::\n\n"
+print'Result of puts "ABC".lth =>'
 puts "ABC".lth
 
 
@@ -16,5 +18,7 @@ class Integer
 		
 	end
 end
+print'Result of puts 5.icmt =>'
+
 puts 5.icmt
 
